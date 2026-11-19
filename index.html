@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A0B0D" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 18'%3E%3Crect width='22' height='18' fill='%230A0B0D'/%3E%3Cpath d='M2 16L8 3L14 16M10 16L15 6L20 16' stroke='%23F4F1EC' stroke-width='1.4' fill='none'/%3E%3C/svg%3E" />
+  <title>LEMMA Studio — Brand Architecture, Editoria &amp; Art Direction | Milano · Zurigo</title>
+  <meta name="description" content="LEMMA è uno studio indipendente di comunicazione, brand architecture, sistemi editoriali, packaging culturale e digital experience tra Milano e Zurigo." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto principale</a>
+
+  <!-- Fixed Corner Header -->
+  <header class="site-header" id="siteHeader">
+    <a class="corner-brand" href="#prologo" aria-label="LEMMA Studio — Torna all'inizio" data-cursor="TOP">
+      <svg width="22" height="18" viewBox="0 0 22 18" fill="none" aria-hidden="true">
+        <path d="M2 16L8 3L14 16M10 16L15 6L20 16" stroke="currentColor" stroke-width="1.2" />
+      </svg>
+      <span class="brand-word">LEMMA</span>
+      <span class="brand-sub">STUDIO</span>
+    </a>
+
+    <button
+      type="button"
+      class="corner-menu"
+      id="openMenuBtn"
+      aria-haspopup="dialog"
+      aria-controls="menuDialog"
+      aria-expanded="false"
+      data-cursor="MENU"
+    >
+      <span class="menu-label">MENU</span>
+      <span class="menu-bars" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </header>
+
+  <!-- Fixed Left Chapter Rail (M10) -->
+  <nav class="chapter-rail" id="chapterRail" aria-label="Indice delle sezioni">
+    <span class="rail-label" id="railActiveLabel">PROLOGO</span>
+    <ul class="rail-dots">
+      <li><a class="rail-dot is-active" href="#prologo" data-rail-target="prologo" data-rail-label="PROLOGO" aria-label="Vai al Prologo"><span></span></a></li>
+      <li><a class="rail-dot" href="#caso-01" data-rail-target="caso-01" data-rail-label="01" aria-label="Vai a 01 Kalt Objects"><span></span></a></li>
+      <li><a class="rail-dot" href="#caso-02" data-rail-target="caso-02" data-rail-label="02" aria-label="Vai a 02 Fondazione Chiaroscuro"><span></span></a></li>
+      <li><a class="rail-dot" href="#caso-03" data-rail-target="caso-03" data-rail-label="03" aria-label="Vai a 03 Edizioni Calce"><span></span></a></li>
+      <li><a class="rail-dot" href="#caso-04" data-rail-target="caso-04" data-rail-label="04" aria-label="Vai a 04 Atelier Nove"><span></span></a></li>
+      <li><a class="rail-dot" href="#caso-05" data-rail-target="caso-05" data-rail-label="05" aria-label="Vai a 05 Vetro &amp; Silice"><span></span></a></li>
+      <li><a class="rail-dot" href="#caso-06" data-rail-target="caso-06" data-rail-label="06" aria-label="Vai a 06 Biennale del Suono"><span></span></a></li>
+      <li><a class="rail-dot" href="#studio" data-rail-target="studio" data-rail-label="STUDIO" aria-label="Vai a Lo Studio"><span></span></a></li>
+      <li><a class="rail-dot" href="#contatti" data-rail-target="contatti" data-rail-label="CONTATTI" aria-label="Vai ai Contatti"><span></span></a></li>
+    </ul>
+    <div class="rail-track" aria-hidden="true">
+      <div class="rail-progress-fill" id="railProgressFill"></div>
+    </div>
+  </nav>
+
+  <!-- Magnetic Reticle Cursor (Desktop fine pointer only) -->
+  <div class="reticle-cursor" id="reticleCursor" aria-hidden="true">
+    <span class="reticle-ring"></span>
+    <span class="reticle-text" id="reticleText">EXPLORE</span>
+  </div>
+
+  <!-- Stage Curtain Progress HUD (Desktop Curtain Stage) -->
+  <div class="stage-progress" id="stageProgress" aria-hidden="true">
+    <span class="stage-counter" id="stageCounter">00 / 06</span>
+    <span class="stage-track"><span class="stage-fill" id="stageFill"></span></span>
+  </div>
+
+  <main id="main">
+    <!-- M1 Full-Screen Curtain Reveal Stage -->
+    <div class="curtain-stage" id="curtainStage">
+
+      <!-- PROLOGO / HERO -->
+      <section class="curtain-panel panel-hero" id="prologo" data-chapter="PROLOGO" data-stage-num="00" aria-labelledby="heroHeading">
+        <div class="panel-inner">
+          <img
+            class="hero-bg"
+            src="assets/images/hero-concrete-hall.jpg"
+            alt="Architettura in cemento armato attraversata da un taglio diagonale di luce naturale"
+            width="2300"
+            height="1534"
+            fetchpriority="high"
+            decoding="sync"
+          />
+          <div class="hero-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="hero-center">
+            <h1 class="hero-display" id="heroHeading">
+              <span class="tx03-wrap" data-text="Oltre il"><span class="tx03-fill">Oltre il</span></span><br />
+              <span class="tx03-wrap" data-text="Segno Visibile"><span class="tx03-fill">Segno Visibile</span></span>
+            </h1>
+            <p class="hero-subtitle">Architettura di marca, sistemi editoriali e direzione artistica per musei, editori e aziende di design contemporaneo.</p>
+          </div>
+
+          <a class="scroll-cue" href="#caso-01" aria-label="Scorri al primo caso studio" data-cursor="SCROLL">
+            <span class="scroll-text">SCROLL</span>
+            <span class="scroll-line" aria-hidden="true"></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- CAPITOLO 01 -->
+      <article class="curtain-panel panel-chapter" id="caso-01" data-chapter="01" data-stage-num="01" aria-labelledby="caseTitle01">
+        <div class="panel-inner">
+          <img
+            class="chapter-photo photo-kalt"
+            src="assets/images/case-01-kalt.jpg"
+            alt="Oggetti scultorei in legno scuro e ceramiche opache illuminati da luce radente in studio"
+            width="736"
+            height="1104"
+            loading="lazy"
+          />
+          <div class="chapter-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="chapter-col">
+            <div class="chapter-meta-row">
+              <span class="chapter-num tx03-num">01</span>
+              <span class="chapter-tag">BASILEA · 2024 · ARREDO &amp; LUCE</span>
+            </div>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="chapter-title" id="caseTitle01">Kalt Objects<br />Materia e Luce</h2>
+            <p class="chapter-copy">Identità di marca, direzione fotografica in studio e catalogo monografico per la manifattura luminosa di Basilea.</p>
+            <button type="button" class="chapter-cta" data-open-case="01" data-cursor="EXPLORE">
+              <span>Esplora il caso</span>
+              <span class="chapter-cta-line" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 02 -->
+      <article class="curtain-panel panel-chapter" id="caso-02" data-chapter="02" data-stage-num="02" aria-labelledby="caseTitle02">
+        <div class="panel-inner">
+          <img
+            class="chapter-photo photo-chiaroscuro"
+            src="assets/images/case-02-chiaroscuro.jpg"
+            alt="Volumi monumentali a sbalzo in calcestruzzo sotto cielo coperto"
+            width="4032"
+            height="3024"
+            loading="lazy"
+          />
+          <div class="chapter-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="chapter-col">
+            <div class="chapter-meta-row">
+              <span class="chapter-num tx03-num">02</span>
+              <span class="chapter-tag">TORINO · 2025 · MUSEO &amp; MOSTRA</span>
+            </div>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="chapter-title" id="caseTitle02">Fondazione Chiaroscuro<br />Architetture del Vuoto</h2>
+            <p class="chapter-copy">Architettura di marca, sistema tipografico espositivo e segnaletica architettonica per il nuovo polo museale torinese.</p>
+            <button type="button" class="chapter-cta" data-open-case="02" data-cursor="EXPLORE">
+              <span>Esplora il caso</span>
+              <span class="chapter-cta-line" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 03 -->
+      <article class="curtain-panel panel-chapter" id="caso-03" data-chapter="03" data-stage-num="03" aria-labelledby="caseTitle03">
+        <div class="panel-inner">
+          <img
+            class="chapter-photo photo-calce"
+            src="assets/images/case-03-calce.jpg"
+            alt="Sale espositive in cemento a vista con illuminazione zenitale e opere incorniciate"
+            width="735"
+            height="477"
+            loading="lazy"
+          />
+          <div class="chapter-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="chapter-col">
+            <div class="chapter-meta-row">
+              <span class="chapter-num tx03-num">03</span>
+              <span class="chapter-tag">MILANO · 2025 · SISTEMI EDITORIALI</span>
+            </div>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="chapter-title" id="caseTitle03">Edizioni Calce<br />Collana Monografica</h2>
+            <p class="chapter-copy">Gabbia editoriale modulare, progettazione copertine in tela grezza e catalogo digitale per l'editore milanese d'architettura.</p>
+            <button type="button" class="chapter-cta" data-open-case="03" data-cursor="EXPLORE">
+              <span>Esplora il caso</span>
+              <span class="chapter-cta-line" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 04 -->
+      <article class="curtain-panel panel-chapter" id="caso-04" data-chapter="04" data-stage-num="04" aria-labelledby="caseTitle04">
+        <div class="panel-inner">
+          <img
+            class="chapter-photo photo-atelier"
+            src="assets/images/case-04-atelier-nove.jpg"
+            alt="Figura in abiti sartoriali essenziali che scende una scalinata monumentale in cemento"
+            width="736"
+            height="1104"
+            loading="lazy"
+          />
+          <div class="chapter-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="chapter-col">
+            <div class="chapter-meta-row">
+              <span class="chapter-num tx03-num">04</span>
+              <span class="chapter-tag">MILANO / PARIGI · 2024 · MODA</span>
+            </div>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="chapter-title" id="caseTitle04">Atelier Nove<br />Silenzio Tessile AW25</h2>
+            <p class="chapter-copy">Direzione artistica di campagna, lookbook stampato a filo refe e archivio collezioni digitale per la maison indipendente.</p>
+            <button type="button" class="chapter-cta" data-open-case="04" data-cursor="EXPLORE">
+              <span>Esplora il caso</span>
+              <span class="chapter-cta-line" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 05 -->
+      <article class="curtain-panel panel-chapter" id="caso-05" data-chapter="05" data-stage-num="05" aria-labelledby="caseTitle05">
+        <div class="panel-inner">
+          <img
+            class="chapter-photo photo-vetro"
+            src="assets/images/case-05-vetro-silice.jpg"
+            alt="Contenitore scultoreo scuro fotografato su fascio di luce laterale"
+            width="860"
+            height="1290"
+            loading="lazy"
+          />
+          <div class="chapter-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="chapter-col">
+            <div class="chapter-meta-row">
+              <span class="chapter-num tx03-num">05</span>
+              <span class="chapter-tag">MURANO / ZURIGO · 2024 · PACKAGING</span>
+            </div>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="chapter-title" id="caseTitle05">Vetro &amp; Silice<br />Edizioni Numerate</h2>
+            <p class="chapter-copy">Packaging strutturale in cartone minerale, etichettatura tipografica serializzata e piattaforma di presentazione per oggetti in vetro soffiato.</p>
+            <button type="button" class="chapter-cta" data-open-case="05" data-cursor="EXPLORE">
+              <span>Esplora il caso</span>
+              <span class="chapter-cta-line" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 06 -->
+      <article class="curtain-panel panel-chapter" id="caso-06" data-chapter="06" data-stage-num="06" aria-labelledby="caseTitle06">
+        <div class="panel-inner">
+          <img
+            class="chapter-photo photo-biennale"
+            src="assets/images/case-06-biennale.jpg"
+            alt="Facciata contemporanea scura tagliata da un fascio di luce diagonale"
+            width="1920"
+            height="1280"
+            loading="lazy"
+          />
+          <div class="chapter-scrim" aria-hidden="true"></div>
+          <div class="panel-dim-veil" aria-hidden="true"></div>
+
+          <div class="chapter-col">
+            <div class="chapter-meta-row">
+              <span class="chapter-num tx03-num">06</span>
+              <span class="chapter-tag">LUGANO · 2023 · RASSEGNA CULTURALE</span>
+            </div>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="chapter-title" id="caseTitle06">Biennale del Suono<br />Partitura Urbana</h2>
+            <p class="chapter-copy">Sistema visivo multicanale, programma tipografico di sala, manifesti outdoor e programma digitale interattivo tra Lugano e Zurigo.</p>
+            <button type="button" class="chapter-cta" data-open-case="06" data-cursor="EXPLORE">
+              <span>Esplora il caso</span>
+              <span class="chapter-cta-line" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /.curtain-stage -->
+
+    <!-- SEZIONE STUDIO (12-column Swiss Grid + Colonna del Silenzio) -->
+    <section class="studio-section" id="studio" data-chapter="STUDIO" aria-labelledby="studioHeading">
+      <div class="container">
+        <div class="studio-grid">
+          <div class="studio-left">
+            <span class="section-num tx03-num">07</span>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="section-heading" id="studioHeading">Lo Studio</h2>
+            <p class="studio-coords">MILANO · VIA SOLFERINO 32<br />ZURIGO · LIMMATQUAI 94</p>
+            <figure class="studio-figure">
+              <img
+                src="assets/images/studio-la-congiunta.jpg"
+                alt="Soglia in cemento armato grezzo che inquadra una scultura in bronzo in spazio espositivo"
+                width="1600"
+                height="2000"
+                loading="lazy"
+              />
+              <figcaption>SPAZIO E MISURA · ARCHIVIO DI RICERCA VISIVA</figcaption>
+            </figure>
+          </div>
+
+          <!-- Col 5 intentionally empty: Colonna del Silenzio -->
+          <div class="studio-right">
+            <p class="studio-manifesto">Progettiamo identità visive e architetture editoriali pensate per durare oltre i cicli stagionali del linguaggio commerciale.</p>
+
+            <div class="studio-bio">
+              <p>Fondato nel 2019 da <strong>Chiara Ferrero</strong> (brand architecture ed editoria) e <strong>Lukas Lindner</strong> (art direction e sistemi digitali), LEMMA opera tra Milano e Zurigo con un nucleo progettuale essenziale e diretto.</p>
+              <p>Collaboriamo con istituzioni museali, case editrici indipendenti, manifatture di design e maison di moda, trattando ogni incarico come una costruzione unitaria fra tipografia, materia stampata ed esperienza digitale.</p>
+            </div>
+
+            <div class="disciplines-wrap">
+              <h3 class="sub-heading">Ambiti Operativi</h3>
+              <table class="spec-table">
+                <tbody>
+                  <tr>
+                    <td class="spec-index">01</td>
+                    <th scope="row">Brand Architecture</th>
+                    <td>Posizionamento, identità visive, design system e governance di marca</td>
+                  </tr>
+                  <tr>
+                    <td class="spec-index">02</td>
+                    <th scope="row">Sistemi Editoriali</th>
+                    <td>Monografie, cataloghi museali, collane librarie e gabbie tipografiche</td>
+                  </tr>
+                  <tr>
+                    <td class="spec-index">03</td>
+                    <th scope="row">Art Direction</th>
+                    <td>Regia fotografica in studio, still-life architettonico e campagne stagionali</td>
+                  </tr>
+                  <tr>
+                    <td class="spec-index">04</td>
+                    <th scope="row">Packaging Culturale</th>
+                    <td>Edizioni numerate, custodie in carta minerale e packaging commerciale tattile</td>
+                  </tr>
+                  <tr>
+                    <td class="spec-index">05</td>
+                    <th scope="row">Digital Experience</th>
+                    <td>Siti editoriali su misura, archivi curatoriali e interfacce ad alta leggibilità</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE INDICE OPERE -->
+    <section class="archive-section" id="archivio" data-chapter="ARCHIVIO" aria-labelledby="archiveHeading">
+      <div class="container">
+        <div class="archive-top">
+          <div>
+            <span class="section-num tx03-num">08</span>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="section-heading" id="archiveHeading">Indice Opere Selezionate</h2>
+          </div>
+          <p class="archive-note">Sei commissioni recenti consultabili nel formato dossier completo.</p>
+        </div>
+
+        <ul class="archive-ledger">
+          <li>
+            <button type="button" class="ledger-row" data-open-case="01" data-cursor="VIEW">
+              <span class="ledger-num">01</span>
+              <span class="ledger-client">Kalt Objects</span>
+              <span class="ledger-scope">Brand Architecture · Catalogo</span>
+              <span class="ledger-city">Basilea</span>
+              <span class="ledger-year">2024</span>
+              <span class="ledger-action">Apri ↗</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="ledger-row" data-open-case="02" data-cursor="VIEW">
+              <span class="ledger-num">02</span>
+              <span class="ledger-client">Fondazione Chiaroscuro</span>
+              <span class="ledger-scope">Identità Museale · Segnaletica</span>
+              <span class="ledger-city">Torino</span>
+              <span class="ledger-year">2025</span>
+              <span class="ledger-action">Apri ↗</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="ledger-row" data-open-case="03" data-cursor="VIEW">
+              <span class="ledger-num">03</span>
+              <span class="ledger-client">Edizioni Calce</span>
+              <span class="ledger-scope">Sistema Editoriale · Collana</span>
+              <span class="ledger-city">Milano</span>
+              <span class="ledger-year">2025</span>
+              <span class="ledger-action">Apri ↗</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="ledger-row" data-open-case="04" data-cursor="VIEW">
+              <span class="ledger-num">04</span>
+              <span class="ledger-client">Atelier Nove</span>
+              <span class="ledger-scope">Art Direction · Campagna AW25</span>
+              <span class="ledger-city">Milano / Parigi</span>
+              <span class="ledger-year">2024</span>
+              <span class="ledger-action">Apri ↗</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="ledger-row" data-open-case="05" data-cursor="VIEW">
+              <span class="ledger-num">05</span>
+              <span class="ledger-client">Vetro &amp; Silice</span>
+              <span class="ledger-scope">Packaging Culturale · Web</span>
+              <span class="ledger-city">Murano / Zurigo</span>
+              <span class="ledger-year">2024</span>
+              <span class="ledger-action">Apri ↗</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="ledger-row" data-open-case="06" data-cursor="VIEW">
+              <span class="ledger-num">06</span>
+              <span class="ledger-client">Biennale del Suono</span>
+              <span class="ledger-scope">Identità Dinamica · Outdoor</span>
+              <span class="ledger-city">Lugano</span>
+              <span class="ledger-year">2023</span>
+              <span class="ledger-action">Apri ↗</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEZIONE CONTATTI -->
+    <section class="contact-section" id="contatti" data-chapter="CONTATTI" aria-labelledby="contactHeading">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-left">
+            <span class="section-num tx03-num">09</span>
+            <div class="chapter-rule" aria-hidden="true"></div>
+            <h2 class="section-heading" id="contactHeading">Inizia un dialogo</h2>
+            <p class="contact-intro">Riceviamo su appuntamento nello studio di Brera a Milano e presso il nostro desk di Zurigo per nuove commissioni culturali e industriali.</p>
+
+            <dl class="office-list">
+              <div class="office-item">
+                <dt>Milano</dt>
+                <dd>Via Solferino 32, 20121 Milano</dd>
+              </div>
+              <div class="office-item">
+                <dt>Zurigo</dt>
+                <dd>Limmatquai 94, 8001 Zürich</dd>
+              </div>
+              <div class="office-item">
+                <dt>Posta Diretta</dt>
+                <dd><a href="mailto:studio@lemmamilano.it">studio@lemmamilano.it</a></dd>
+              </div>
+              <div class="office-item">
+                <dt>Telefono</dt>
+                <dd><a href="tel:+390289412730">+39 02 8941 2730</a></dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="contact-right">
+            <form class="studio-form" id="contactForm" novalidate>
+              <div class="form-field">
+                <label for="senderName">Nome o Istituzione</label>
+                <input id="senderName" name="name" type="text" required autocomplete="organization" placeholder="Es. Fondazione Museo / Nome Cognome" />
+              </div>
+              <div class="form-field">
+                <label for="senderEmail">Indirizzo Email</label>
+                <input id="senderEmail" name="email" type="email" required autocomplete="email" placeholder="nome@istituzione.it" />
+              </div>
+              <div class="form-field">
+                <label for="projectScope">Ambito Principale</label>
+                <select id="projectScope" name="scope" required>
+                  <option value="" disabled selected>Seleziona un ambito</option>
+                  <option value="brand">Brand Architecture &amp; Identità</option>
+                  <option value="editorial">Sistemi Editoriali &amp; Monografie</option>
+                  <option value="artdirection">Art Direction &amp; Campagna</option>
+                  <option value="packaging">Packaging Culturale / Commerciale</option>
+                  <option value="digital">Digital Experience</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="projectBrief">Nota Sintetica</label>
+                <textarea id="projectBrief" name="brief" rows="3" required placeholder="Contesto, tempistiche previste o obiettivi della commissione"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="submit-btn" data-cursor="INVIA">
+                  <span>Invia Richiesta</span>
+                  <span class="chapter-cta-line" aria-hidden="true"></span>
+                </button>
+                <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Ledger -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© 2026 LEMMA STUDIO · MILANO · ZURIGO</span>
+      <nav class="footer-links" aria-label="Navigazione secondaria">
+        <a href="#prologo">Prologo</a>
+        <a href="#caso-01">Opere</a>
+        <a href="#studio">Studio</a>
+        <a href="#archivio">Archivio</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Native Top-Layer Menu Dialog -->
+  <dialog id="menuDialog" class="studio-dialog menu-dialog" closedby="any" aria-labelledby="menuDialogTitle">
+    <div class="dialog-shell">
+      <div class="dialog-topbar">
+        <span class="dialog-eyebrow" id="menuDialogTitle">LEMMA STUDIO — INDICE</span>
+        <button type="button" class="dialog-close" data-close-dialog="menuDialog" data-cursor="CLOSE">
+          <span>Chiudi</span>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="menu-dialog-body">
+        <ul class="menu-nav-list">
+          <li><a href="#prologo" data-menu-link><span>00</span>Prologo</a></li>
+          <li><a href="#caso-01" data-menu-link><span>01</span>Kalt Objects</a></li>
+          <li><a href="#caso-02" data-menu-link><span>02</span>Fondazione Chiaroscuro</a></li>
+          <li><a href="#caso-03" data-menu-link><span>03</span>Edizioni Calce</a></li>
+          <li><a href="#caso-04" data-menu-link><span>04</span>Atelier Nove</a></li>
+          <li><a href="#caso-05" data-menu-link><span>05</span>Vetro &amp; Silice</a></li>
+          <li><a href="#caso-06" data-menu-link><span>06</span>Biennale del Suono</a></li>
+          <li><a href="#studio" data-menu-link><span>07</span>Lo Studio</a></li>
+          <li><a href="#contatti" data-menu-link><span>08</span>Contatti</a></li>
+        </ul>
+        <div class="menu-dialog-meta">
+          <p><strong>Milano</strong><br />Via Solferino 32, 20121</p>
+          <p><strong>Zurigo</strong><br />Limmatquai 94, 8001</p>
+          <p><a href="mailto:studio@lemmamilano.it">studio@lemmamilano.it</a><br />+39 02 8941 2730</p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Native Top-Layer Case Study Dossier Dialog -->
+  <dialog id="caseDialog" class="studio-dialog case-dialog" closedby="any" aria-labelledby="caseDialogTitle">
+    <div class="dialog-shell">
+      <div class="dialog-topbar">
+        <span class="dialog-eyebrow" id="caseDialogKicker">01 · BASILEA · 2024</span>
+        <button type="button" class="dialog-close" data-close-dialog="caseDialog" data-cursor="CLOSE">
+          <span>Chiudi</span>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="case-dialog-grid">
+        <div class="case-dialog-info">
+          <h2 class="case-dialog-title" id="caseDialogTitle">Kalt Objects</h2>
+          <p class="case-dialog-subtitle" id="caseDialogSubtitle">Materia e Luce</p>
+          <p class="case-dialog-desc" id="caseDialogDesc"></p>
+
+          <div class="case-dialog-deliverables">
+            <h3>Architettura di Progetto</h3>
+            <ul id="caseDialogList"></ul>
+          </div>
+
+          <div class="case-dialog-pager">
+            <button type="button" class="pager-btn" id="casePrevBtn" data-cursor="PREV">← Precedente</button>
+            <button type="button" class="pager-btn" id="caseNextBtn" data-cursor="NEXT">Successivo →</button>
+          </div>
+        </div>
+        <div class="case-dialog-media">
+          <img
+            id="caseDialogImg"
+            src="assets/images/case-01-kalt.jpg"
+            alt=""
+            width="736"
+            height="1104"
+            fetchpriority="low"
+          />
+        </div>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
