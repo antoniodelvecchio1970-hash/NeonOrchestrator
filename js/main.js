@@ -1,465 +1,750 @@
 /**
- * LEMMA Studio — Level 4 Motion & Interaction (Triad TX-03 + M1 + M10)
- * Strictly preserves :root tokens and DOM hierarchy.
+ * CASA TINTA — Interactive Archive, Case Dossier & Motion Triad (M6 + M7 + TX-06)
+ * Dependencies: GSAP 3.12.5, ScrollTrigger, Lenis 1.1.18
  */
 
-const CASES = [
-  {
-    id: '01',
-    client: 'Kalt Objects',
-    subtitle: 'Materia e Luce',
-    meta: '01 · BASILEA · 2024 · ARREDO & LUCE',
-    desc: 'Per la manifattura svizzera di corpi illuminanti Kalt Objects abbiamo ridefinito l’architettura di marca intorno al silenzio della materia: ottone brunito, vetro colato e legno carbonizzato. Il catalogo cartaceo e la direzione fotografica lavorano esclusivamente su un’unica fonte luminosa radente.',
-    deliverables: [
-      'Brand architecture e sistema di nomenclatura prodotto',
-      'Direzione artistica still-life in camera oscura',
-      'Monografia tecnica stampata a due toni Pantone',
-      'Showroom index digitale con schede fotometriche'
-    ],
-    img: 'assets/images/case-01-kalt.jpg',
-    alt: 'Oggetti scultorei e ceramiche opache illuminati da luce radente'
-  },
-  {
-    id: '02',
-    client: 'Fondazione Chiaroscuro',
-    subtitle: 'Architetture del Vuoto',
-    meta: '02 · TORINO · 2025 · MUSEO & MOSTRA',
-    desc: 'Istituzione dedicata all’arte concettuale e alla scultura brutalista in un’ex fonderia torinese. Il sistema visivo nasce dalle proporzioni del calcestruzzo a vista: una gabbia tipografica serrata unita a un carattere serif inciso per titoli di sala, manifesti urbani e guide di mostra.',
-    deliverables: [
-      'Identità istituzionale e manuale grafico museale',
-      'Segnaletica architettonica in acciaio brunito',
-      'Sistema di collana per i quaderni delle mostre temporanee',
-      'Piattaforma digitale per calendario, archivio e biglietteria'
-    ],
-    img: 'assets/images/case-02-chiaroscuro.jpg',
-    alt: 'Volumi monumentali a sbalzo in calcestruzzo sotto cielo coperto'
-  },
-  {
-    id: '03',
-    client: 'Edizioni Calce',
-    subtitle: 'Collana Monografica',
-    meta: '03 · MILANO · 2025 · SISTEMI EDITORIALI',
-    desc: 'Edizioni Calce pubblica saggi di teoria architettonica e monografie di studi europei. Abbiamo progettato una griglia svizzera a dodici colonne applicabile su tre formati librari, con dorsetti numerati e copertine in tela grezza impressa a secco.',
-    deliverables: [
-      'Sistema editoriale multiformato per 18 titoli inaugurali',
-      'Progettazione caratteri e gerarchia apparati critici',
-      'Packaging di spedizione in cartone riciclato non sbiancato',
-      'Archivio online indicizzato per architetto, luogo e anno'
-    ],
-    img: 'assets/images/case-03-calce.jpg',
-    alt: 'Sale espositive in cemento a vista con illuminazione zenitale'
-  },
-  {
-    id: '04',
-    client: 'Atelier Nove',
-    subtitle: 'Silenzio Tessile AW25',
-    meta: '04 · MILANO / PARIGI · 2024 · MODA & ART DIRECTION',
-    desc: 'Per la presentazione Autunno/Inverno 2025 di Atelier Nove tra Milano e Parigi, abbiamo costruito una narrazione visiva spogliata di ornamento: figure isolate dentro architetture monumentali in cemento, raccolte in un lookbook cucito a filo refe.',
-    deliverables: [
-      'Art direction campagna fotografica AW25',
-      'Lookbook editoriale tiratura limitata (600 copie)',
-      'Etichette tessute, sigilli e scatole rigide da boutique',
-      'Esperienza digitale stagionale e archivio look'
-    ],
-    img: 'assets/images/case-04-atelier-nove.jpg',
-    alt: 'Figura in abiti sartoriali su scalinata monumentale in cemento'
-  },
-  {
-    id: '05',
-    client: 'Vetro & Silice',
-    subtitle: 'Edizioni Numerate',
-    meta: '05 · MURANO / ZURIGO · 2024 · PACKAGING CULTURALE',
-    desc: 'Collezione di vasi e oggetti funzionali soffiati a bocca su disegno d’autore. Il progetto unisce custodia protettiva a doppio strato minerale e tracciatura tipografica progressiva per certificare ogni singolo pezzo tra fornace muranese e gallerie svizzere.',
-    deliverables: [
-      'Design strutturale packaging culturale in cellulosa minerale',
-      'Sistema di certificazione e marcatura laser numerata',
-      'Schede tecniche bilingue italiano / tedesco',
-      'Vetrina digitale per edizioni da collezione'
-    ],
-    img: 'assets/images/case-05-vetro-silice.jpg',
-    alt: 'Contenitore scultoreo scuro in luce direzionale su fondo ossidiana'
-  },
-  {
-    id: '06',
-    client: 'Biennale del Suono',
-    subtitle: 'Partitura Urbana',
-    meta: '06 · LUGANO · 2023 · RASSEGNA CULTURALE',
-    desc: 'Rassegna biennale dedicata all’acustica architettonica e alla musica elettroacustica contemporanea. Una partitura di filetti e proporzioni matematiche traduce in stampa outdoor, programmi tascabili e interfaccia web la scansione temporale dei concerti.',
-    deliverables: [
-      'Sistema visivo e manifesti 70×100 cm in serigrafia bicolore',
-      'Programma di sala tascabile con mappa acustica dei luoghi',
-      'Motion direction essenziale per schermi di foyer',
-      'Programma digitale interattivo con filtri per sede e orario'
-    ],
-    img: 'assets/images/case-06-biennale.jpg',
-    alt: 'Facciata contemporanea scura tagliata da un fascio di luce diagonale'
-  }
-];
+document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
 
-/* ==========================================================================
-   Modern Top-Layer Dialog Helpers (modern-web-guidance)
-   ========================================================================== */
-
-let supportsDisplayTransition;
-let lenisInstance = null;
-
-function canTransitionDisplay() {
-  if (supportsDisplayTransition !== undefined) return supportsDisplayTransition;
-  if (!window.CSS?.supports?.('transition-behavior', 'allow-discrete') || !document.body) {
-    return false;
-  }
-  const probe = document.createElement('div');
-  probe.style.cssText = 'transition: display 1s allow-discrete !important; display: block;';
-  document.body.appendChild(probe);
-  getComputedStyle(probe).display;
-  probe.style.display = 'none';
-  supportsDisplayTransition = getComputedStyle(probe).display === 'block';
-  probe.remove();
-  return supportsDisplayTransition;
-}
-
-function supportsTopLayerExit() {
-  return Boolean(window.CSS?.supports?.('overlay', 'auto') && canTransitionDisplay());
-}
-
-async function closeTopLayer(dialog) {
-  if (!dialog || !dialog.open) return;
-  if (!supportsTopLayerExit()) {
-    dialog.setAttribute('data-closing', '');
-    const animations = dialog.getAnimations({ subtree: true });
-    if (animations.length > 0) {
-      await Promise.race([
-        Promise.allSettled(animations.map((a) => a.finished)),
-        new Promise((resolve) => setTimeout(resolve, 420))
-      ]);
+  const PROJECTS = [
+    {
+      id: '01',
+      title: 'Cocco Botánica',
+      client: 'Cocco Botánica Lda',
+      category: 'PACKAGING',
+      city: 'Lisbona',
+      year: '2025',
+      color: '#F4BE0B',
+      img: 'assets/cocco-yellow.jpg',
+      pos: 'center 46%',
+      alt: 'Cofanetti illustrati Cocco Botánica su cromia giallo zafferano, cobalto e vermiglio',
+      summary: 'Cofanetti illustrati in quattro cromie piene per pasticceria artigianale e infusi botanici a Lisbona, progettati su cartoncino non patinato con vernice selettiva opaca.'
+    },
+    {
+      id: '02',
+      title: 'Mōko Cacao',
+      client: 'Mōko Obrador',
+      category: 'IDENTITY',
+      city: 'Barcellona',
+      year: '2025',
+      color: '#0C3EA8',
+      img: 'assets/moko-cobalt.jpg',
+      pos: 'center 50%',
+      alt: 'Identità visiva e cofanetti blu cobalto e arancio Mōko Cacao',
+      summary: 'Sistema di identità visiva, logotipo graffiato e collezione di cofanetti per cioccolateria bean-to-bar nel cuore di Barcellona, costruita sull’urto cromatico tra cobalto e arancio vivo.'
+    },
+    {
+      id: '03',
+      title: 'Dune Roasters',
+      client: 'Dune Caffè Torino',
+      category: 'IDENTITY',
+      city: 'Torino',
+      year: '2025',
+      color: '#9E5130',
+      img: 'assets/dune-coffee.jpg',
+      pos: 'center 48%',
+      alt: 'Pouch in carta materica blu notte, sabbia e terracotta per Dune Roasters',
+      summary: 'Marchio, architettura tipografica e sacchetti in carta materica in tre varianti cromatiche terrose per una micro-torrefazione specialty torinese.'
+    },
+    {
+      id: '04',
+      title: 'Velne Parfums',
+      client: 'Maison Velne',
+      category: 'PACKAGING',
+      city: 'Marsiglia',
+      year: '2025',
+      color: '#5E5B24',
+      img: 'assets/velne-boxes.jpg',
+      pos: 'center 42%',
+      alt: 'Astucci Velne Parfums con goffratura botanica a secco e quattro essenze',
+      summary: 'Astucci per profumeria botanica con goffratura profonda a secco e codifica olfattiva in quattro toni naturali — Dusk, Soil, Ember e Veil.'
+    },
+    {
+      id: '05',
+      title: 'Equipp Audio',
+      client: 'Equipp Acoustics AG',
+      category: 'PACKAGING',
+      city: 'Zurigo',
+      year: '2024',
+      color: '#B67E53',
+      img: 'assets/equipp-box.jpg',
+      pos: 'center 50%',
+      alt: 'Scatola strutturale rigida con sfumatura rame e ossidiana per Equipp Audio',
+      summary: 'Packaging strutturale rigido a chiusura magnetica per convertitori acustici da studio, calibrato su stampa a gradiente rame su cartone grigio.'
+    },
+    {
+      id: '06',
+      title: 'Nova Orbit',
+      client: 'Fondazione Suono Nova',
+      category: 'CAMPAGNE',
+      city: 'Milano',
+      year: '2025',
+      color: '#0F9EB0',
+      img: 'assets/orbit-campaign.jpg',
+      pos: 'center 28%',
+      alt: 'Ritratto in luce bicromatica ciano e cremisi per campagna Nova Orbit',
+      summary: 'Direzione fotografica e campagna di lancio in luce bicromatica ciano-cremisi per il programma notturno di musica elettronica e installazioni sonore.'
+    },
+    {
+      id: '07',
+      title: 'Docta Botanicals',
+      client: 'Docta Apothecary',
+      category: 'PACKAGING',
+      city: 'Ginevra',
+      year: '2024',
+      color: '#E59824',
+      img: 'assets/docta-tins.webp',
+      pos: 'center 50%',
+      alt: 'Latte metalliche serigrafate con motivi botanici ad alta saturazione Docta',
+      summary: 'Serie collezionabile di latte metalliche serigrafate con tavole botaniche ad alta saturazione e cartiglio centrale in oro caldo.'
+    },
+    {
+      id: '08',
+      title: 'Onda Street',
+      client: 'Onda Tessile Srl',
+      category: 'CAMPAGNE',
+      city: 'Torino',
+      year: '2025',
+      color: '#D4A51A',
+      img: 'assets/street-campaign.jpg',
+      pos: 'center 22%',
+      alt: 'Campagna editoriale urbana Onda Street tra architetture industriali',
+      summary: 'Campagna editoriale su location industriali torinesi e direzione casting per la prima capsule workwear di Onda.'
+    },
+    {
+      id: '09',
+      title: 'Solera Lineup',
+      client: 'Solera Dispensa',
+      category: 'PACKAGING',
+      city: 'Valencia',
+      year: '2024',
+      color: '#D96846',
+      img: 'assets/pack-lineup.jpg',
+      pos: 'center 50%',
+      alt: 'Gamma di sei pouch cromatici allineati con gabbia svizzera Solera',
+      summary: 'Architettura di gamma a sei referenze cromatiche con gabbia tipografica unificata e lettura immediata da scaffale.'
+    },
+    {
+      id: '10',
+      title: 'Fork & Flame',
+      client: 'Fork & Flame Cucina',
+      category: 'IDENTITY',
+      city: 'Bologna',
+      year: '2025',
+      color: '#1E3F33',
+      img: 'assets/fork-flame.jpg',
+      pos: 'center 44%',
+      alt: 'Sistema coordinato takeaway, shopper e fascette Fork & Flame',
+      summary: 'Sistema d’identità, shopper in carta avana, fascette termosaldate e materiali di servizio in verde bosco e terracotta.'
+    },
+    {
+      id: '11',
+      title: 'Borgo Mercato',
+      client: 'Consorzio Borgo',
+      category: 'PACKAGING',
+      city: 'Parma',
+      year: '2024',
+      color: '#1B7D82',
+      img: 'assets/borgo-bags.png',
+      pos: 'center 45%',
+      alt: 'Sacchetti regalo con manici in corda intrecciata Borgo Mercato',
+      summary: 'Sacchetti regalo strutturati con manici in corda intrecciata e illustrazione architettonica continua sulle quattro facce.'
+    },
+    {
+      id: '12',
+      title: 'Alpe Coofs',
+      client: 'Alpe Cooperativa',
+      category: 'IDENTITY',
+      city: 'Bolzano',
+      year: '2024',
+      color: '#E88B72',
+      img: 'assets/alpe-bags.jpg',
+      pos: 'center 48%',
+      alt: 'Shopper e identità cromatica alpina Alpe Coofs',
+      summary: 'Identità territoriale e sistema shopper a campiture nette per rete di produttori alpini di alta quota.'
+    },
+    {
+      id: '13',
+      title: 'Lipty Fruit',
+      client: 'Lipty Foods SL',
+      category: 'PACKAGING',
+      city: 'Barcellona',
+      year: '2025',
+      color: '#6D2DA6',
+      img: 'assets/lipty-fruit.jpg',
+      pos: 'center 45%',
+      alt: 'Confezioni viola, blu e giallo zafferano Lipty Fruit',
+      summary: 'Packaging pop ad alto contrasto con character design modulare e codifica cromatica per gamma di frutta liofilizzata.'
+    },
+    {
+      id: '14',
+      title: 'Super Coffee',
+      client: 'Super Caffeine Labs',
+      category: 'CAMPAGNE',
+      city: 'Madrid',
+      year: '2024',
+      color: '#7A3B21',
+      img: 'assets/cacao-burst.jpg',
+      pos: 'center 46%',
+      alt: 'Still life ad alta velocità con barattolo immerso in polvere di cacao',
+      summary: 'Key visual di prodotto ad alta velocità con polvere di cacao in sospensione e direzione illuminotecnica calda da studio.'
+    },
+    {
+      id: '15',
+      title: 'Rossa Outdoor',
+      client: 'Rossa Ottica',
+      category: 'CAMPAGNE',
+      city: 'Barcellona',
+      year: '2025',
+      color: '#D93829',
+      img: 'assets/outdoor-red.jpg',
+      pos: 'center 45%',
+      alt: 'Pensilina stradale vermiglio con ritratto editoriale Rossa Outdoor',
+      summary: 'Campagna di affissioni e pensiline monocromatiche vermiglio per il lancio estivo della linea solare Rossa Ottica.'
     }
-    if (!dialog.hasAttribute('data-closing')) return;
-    dialog.removeAttribute('data-closing');
-  }
-  dialog.close();
-}
+  ];
 
-function setupDialogLightDismiss(dialog) {
-  if (!dialog) return;
+  const HERO_PLATES = [
+    { id: '01', code: 'CK\n25.', kicker: 'PACKAGING' },
+    { id: '02', code: 'MK\n25.', kicker: 'IDENTITY' },
+    { id: '04', code: 'VL\n25.', kicker: 'PACKAGING' },
+    { id: '15', code: 'RS\n25.', kicker: 'CAMPAGNE' }
+  ];
 
-  dialog.addEventListener('cancel', (event) => {
-    event.preventDefault();
-    closeTopLayer(dialog);
-  });
+  const header = document.getElementById('site-header');
+  const heroBg = document.getElementById('hero-bg');
+  const heroBgWipe = document.getElementById('hero-bg-wipe');
+  const heroLeftKicker = document.getElementById('hero-left-kicker');
+  const heroLeftCode = document.getElementById('hero-left-code');
+  const heroCalloutIdx = document.getElementById('hero-callout-index');
+  const heroCalloutTitle = document.getElementById('hero-callout-title');
+  const heroCalloutCopy = document.getElementById('hero-callout-copy');
+  const heroOpenDossierBtn = document.getElementById('hero-open-dossier');
+  const heroPlateCounter = document.getElementById('hero-plate-counter');
+  const heroNextBtn = document.getElementById('hero-next-btn');
 
-  dialog.addEventListener('close', () => {
-    lenisInstance?.start();
-    if (dialog.id === 'menuDialog') {
-      const btn = document.getElementById('openMenuBtn');
-      if (btn) btn.setAttribute('aria-expanded', 'false');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(hover: hover)').matches || window.matchMedia('(any-pointer: fine)').matches || !window.matchMedia('(pointer: coarse)').matches;
+
+  // Header scroll state
+  const updateHeaderState = () => {
+    const heroEl = document.getElementById('hero');
+    const threshold = heroEl ? Math.max(120, heroEl.offsetHeight - 100) : 500;
+    if (header) {
+      header.classList.toggle('is-scrolled', window.scrollY > threshold);
     }
-  });
+  };
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+  updateHeaderState();
 
-  if (!('closedBy' in HTMLDialogElement.prototype)) {
-    dialog.addEventListener('click', (event) => {
-      if (event.target !== dialog) return;
-      const rect = dialog.getBoundingClientRect();
-      const inside =
-        rect.top <= event.clientY &&
-        event.clientY <= rect.top + rect.height &&
-        rect.left <= event.clientX &&
-        event.clientX <= rect.left + rect.width;
-      if (!inside) {
-        closeTopLayer(dialog);
+  // =========================================================================
+  // 1. HERO NEXT PLATE SWITCHER (CLIP-PATH WIPE)
+  // =========================================================================
+  let heroPlateIdx = 0;
+  let isHeroTransitioning = false;
+
+  const applyHeroProject = (plateMeta) => {
+    const proj = PROJECTS.find((p) => p.id === plateMeta.id) || PROJECTS[0];
+    if (heroLeftKicker) heroLeftKicker.textContent = plateMeta.kicker;
+    if (heroLeftCode) heroLeftCode.innerHTML = plateMeta.code.replace('\n', '<br>');
+    if (heroCalloutIdx) heroCalloutIdx.textContent = `Progetto ${proj.id} / 15`;
+    if (heroCalloutTitle) heroCalloutTitle.textContent = proj.title;
+    if (heroCalloutCopy) heroCalloutCopy.textContent = proj.summary;
+    if (heroOpenDossierBtn) heroOpenDossierBtn.dataset.projectId = proj.id;
+    if (heroPlateCounter) heroPlateCounter.textContent = `TAVOLA 0${heroPlateIdx + 1} / 0${HERO_PLATES.length}`;
+    return proj;
+  };
+
+  if (heroNextBtn) {
+    heroNextBtn.addEventListener('click', () => {
+      if (isHeroTransitioning) return;
+      heroPlateIdx = (heroPlateIdx + 1) % HERO_PLATES.length;
+      const plateMeta = HERO_PLATES[heroPlateIdx];
+      const proj = applyHeroProject(plateMeta);
+
+      if (!window.gsap || prefersReducedMotion || !heroBgWipe || !heroBg) {
+        if (heroBg) {
+          heroBg.src = proj.img;
+          heroBg.alt = proj.alt;
+          heroBg.style.objectPosition = proj.pos;
+        }
+        return;
       }
+
+      isHeroTransitioning = true;
+      heroBgWipe.src = proj.img;
+      heroBgWipe.style.objectPosition = proj.pos;
+
+      window.gsap.set(heroBgWipe, {
+        opacity: 1,
+        clipPath: 'inset(0% 0% 0% 100%)',
+        scale: 1.06
+      });
+
+      window.gsap.to(heroBgWipe, {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        scale: 1,
+        duration: 0.72,
+        ease: 'power4.inOut',
+        onComplete: () => {
+          heroBg.src = proj.img;
+          heroBg.alt = proj.alt;
+          heroBg.style.objectPosition = proj.pos;
+          window.gsap.set(heroBgWipe, { opacity: 0 });
+          isHeroTransitioning = false;
+        }
+      });
     });
   }
-}
 
-/* ==========================================================================
-   DOM Initialization & Interactive Flows
-   ========================================================================== */
+  // =========================================================================
+  // 2. NATIVE NAVIGATION & CASE STUDY DIALOGS
+  // =========================================================================
+  const navDialog = document.getElementById('nav-dialog');
+  const navOpenBtn = document.getElementById('nav-open-btn');
+  const navCloseBtn = document.getElementById('nav-close-btn');
 
-document.addEventListener('DOMContentLoaded', () => {
-  const menuDialog = document.getElementById('menuDialog');
-  const caseDialog = document.getElementById('caseDialog');
-  const openMenuBtn = document.getElementById('openMenuBtn');
-  const contactForm = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
+  if (navDialog && navOpenBtn && navCloseBtn) {
+    navOpenBtn.addEventListener('click', () => {
+      navOpenBtn.setAttribute('aria-expanded', 'true');
+      navDialog.showModal();
+    });
+    navCloseBtn.addEventListener('click', () => navDialog.close());
+    navDialog.addEventListener('close', () => {
+      navOpenBtn.setAttribute('aria-expanded', 'false');
+    });
+    navDialog.addEventListener('click', (e) => {
+      if (e.target === navDialog) navDialog.close();
+    });
+    navDialog.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', () => navDialog.close());
+    });
+  }
 
+  // Case Dossier Dialog
+  const caseDialog = document.getElementById('case-dialog');
+  const caseCloseBtn = document.getElementById('case-close-btn');
+  const casePrevBtn = document.getElementById('case-prev-btn');
+  const caseNextBtn = document.getElementById('case-next-btn');
+  const caseDialogImg = document.getElementById('case-dialog-img');
+  const caseDialogIndex = document.getElementById('case-dialog-index');
+  const caseDialogTitle = document.getElementById('case-dialog-title');
+  const caseDialogSummary = document.getElementById('case-dialog-summary');
+  const caseSpecClient = document.getElementById('case-spec-client');
+  const caseSpecCat = document.getElementById('case-spec-cat');
+  const caseSpecCity = document.getElementById('case-spec-city');
+  const caseSpecYear = document.getElementById('case-spec-year');
+  const caseSpecSwatch = document.getElementById('case-spec-swatch');
+  const caseSpecColor = document.getElementById('case-spec-color');
   let activeCaseIndex = 0;
 
-  setupDialogLightDismiss(menuDialog);
-  setupDialogLightDismiss(caseDialog);
-
-  function renderCaseModal(idx) {
-    activeCaseIndex = (idx + CASES.length) % CASES.length;
-    const item = CASES[activeCaseIndex];
-    document.getElementById('caseDialogKicker').textContent = item.meta;
-    document.getElementById('caseDialogTitle').textContent = item.client;
-    document.getElementById('caseDialogSubtitle').textContent = item.subtitle;
-    document.getElementById('caseDialogDesc').textContent = item.desc;
-
-    const listEl = document.getElementById('caseDialogList');
-    listEl.innerHTML = '';
-    item.deliverables.forEach((line) => {
-      const li = document.createElement('li');
-      li.textContent = line;
-      listEl.appendChild(li);
-    });
-
-    const imgEl = document.getElementById('caseDialogImg');
-    imgEl.src = item.img;
-    imgEl.alt = item.alt;
-  }
-
-  function openCaseById(caseId) {
-    const idx = CASES.findIndex((c) => c.id === caseId);
-    renderCaseModal(idx >= 0 ? idx : 0);
-    lenisInstance?.stop();
-    caseDialog.showModal();
-  }
-
-  document.querySelectorAll('[data-open-case]').forEach((btn) => {
-    btn.addEventListener('click', () => openCaseById(btn.dataset.openCase));
-  });
-
-  document.getElementById('casePrevBtn')?.addEventListener('click', () => renderCaseModal(activeCaseIndex - 1));
-  document.getElementById('caseNextBtn')?.addEventListener('click', () => renderCaseModal(activeCaseIndex + 1));
-
-  openMenuBtn?.addEventListener('click', () => {
-    openMenuBtn.setAttribute('aria-expanded', 'true');
-    lenisInstance?.stop();
-    menuDialog.showModal();
-  });
-
-  document.querySelectorAll('[data-close-dialog]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const target = document.getElementById(btn.dataset.closeDialog);
-      closeTopLayer(target);
-    });
-  });
-
-  function scrollToAnchor(targetSelector) {
-    const target = document.querySelector(targetSelector);
-    if (!target) return;
-    let dest = target;
-    if (target.classList.contains('curtain-panel') && typeof ScrollTrigger !== 'undefined') {
-      const st = ScrollTrigger.getAll().find((t) => t.trigger === target && t.pin);
-      if (st) {
-        dest = st.start;
-      } else if (target.parentElement?.classList.contains('pin-spacer')) {
-        dest = target.parentElement.getBoundingClientRect().top + window.scrollY;
-      }
+  const renderCaseDialog = (idx) => {
+    activeCaseIndex = (idx + PROJECTS.length) % PROJECTS.length;
+    const p = PROJECTS[activeCaseIndex];
+    if (caseDialogImg) {
+      caseDialogImg.src = p.img;
+      caseDialogImg.alt = p.alt;
+      caseDialogImg.style.objectPosition = p.pos;
     }
-    if (lenisInstance) {
-      lenisInstance.scrollTo(dest, { duration: 1.05 });
-    } else if (typeof dest === 'number') {
-      window.scrollTo({ top: dest, behavior: 'smooth' });
+    if (caseDialogIndex) caseDialogIndex.textContent = `PROGETTO ${p.id} / 15`;
+    if (caseDialogTitle) caseDialogTitle.textContent = p.title;
+    if (caseDialogSummary) caseDialogSummary.textContent = p.summary;
+    if (caseSpecClient) caseSpecClient.textContent = p.client;
+    if (caseSpecCat) caseSpecCat.textContent = p.category;
+    if (caseSpecCity) caseSpecCity.textContent = p.city;
+    if (caseSpecYear) caseSpecYear.textContent = p.year;
+    if (caseSpecSwatch) caseSpecSwatch.style.backgroundColor = p.color;
+    if (caseSpecColor) caseSpecColor.textContent = p.color;
+  };
+
+  // =========================================================================
+  // 3. TX-06 GIANT PREVIEW + RETICLE (MANDATORY SCROLL & LEAVE HARDENING)
+  // =========================================================================
+  const archiveIndex = document.getElementById('archive-index');
+  const previewEl = document.getElementById('archive-preview');
+  const previewImg = document.getElementById('archive-preview-img');
+  const previewMeta = document.getElementById('archive-preview-meta');
+  const previewCat = document.getElementById('archive-preview-cat');
+  const reticleEl = document.getElementById('archive-reticle');
+
+  let previewXTo = null;
+  let previewYTo = null;
+  let reticleXTo = null;
+  let reticleYTo = null;
+  let isPreviewActive = false;
+  let lastMoveScrollY = window.scrollY;
+  let lastPointerX = -1;
+  let lastPointerY = -1;
+  let suppressPreviewUntilMove = false;
+
+  const hidePreview = () => {
+    if (!previewEl) return;
+    isPreviewActive = false;
+    if (window.gsap && !prefersReducedMotion) {
+      window.gsap.to(previewEl, {
+        autoAlpha: 0,
+        scale: 0.96,
+        duration: 0.15,
+        overwrite: 'auto'
+      });
+      if (reticleEl) {
+        window.gsap.to(reticleEl, {
+          autoAlpha: 0,
+          duration: 0.12,
+          overwrite: 'auto'
+        });
+      }
     } else {
-      target.scrollIntoView({ behavior: 'smooth' });
+      previewEl.style.opacity = '0';
+      previewEl.style.visibility = 'hidden';
+      if (reticleEl) {
+        reticleEl.style.opacity = '0';
+        reticleEl.style.visibility = 'hidden';
+      }
     }
-  }
+  };
 
-  document.querySelectorAll('[data-menu-link]').forEach((link) => {
-    link.addEventListener('click', async (event) => {
-      event.preventDefault();
-      const href = link.getAttribute('href');
-      await closeTopLayer(menuDialog);
-      scrollToAnchor(href);
-    });
-  });
+  const hidePreviewOnScroll = () => {
+    const currentY = window.scrollY;
+    if (Math.abs(currentY - lastMoveScrollY) > 1) {
+      lastMoveScrollY = currentY;
+      suppressPreviewUntilMove = true;
+      hidePreview();
+    }
+  };
 
-  document.querySelectorAll('.rail-dot, .scroll-cue, .corner-brand, .footer-links a').forEach((link) => {
-    link.addEventListener('click', (event) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        event.preventDefault();
-        scrollToAnchor(href);
+  const positionPreview = (clientX, clientY) => {
+    if (!previewEl) return;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const pw = previewEl.offsetWidth || 380;
+    const ph = previewEl.offsetHeight || 480;
+
+    let targetX = clientX + 34;
+    if (targetX + pw > vw - 24) {
+      targetX = Math.max(24, clientX - pw - 34);
+    }
+    let targetY = clientY - ph * 0.45;
+    targetY = Math.max(72, Math.min(vh - ph - 24, targetY));
+
+    if (previewXTo && previewYTo) {
+      previewXTo(targetX);
+      previewYTo(targetY);
+    } else {
+      previewEl.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    }
+
+    if (reticleEl) {
+      if (reticleXTo && reticleYTo) {
+        reticleXTo(clientX - 11);
+        reticleYTo(clientY - 11);
+      } else {
+        reticleEl.style.transform = `translate3d(${clientX - 11}px, ${clientY - 11}px, 0)`;
+      }
+    }
+  };
+
+  if (archiveIndex && previewEl && isFinePointer) {
+    const showRowPreview = (btn, e) => {
+      if (window.innerWidth < 900 || !btn) return;
+      const isFocusTrigger = e && e.type === 'focus';
+      const hasPointerCoords = e && typeof e.clientX === 'number';
+      const pointerMoved = hasPointerCoords &&
+        (Math.abs(e.clientX - lastPointerX) > 2 || Math.abs(e.clientY - lastPointerY) > 2);
+      const scrolledUnderCursor = Math.abs(window.scrollY - lastMoveScrollY) > 1;
+
+      if (!isFocusTrigger && (suppressPreviewUntilMove || scrolledUnderCursor) && !pointerMoved) {
+        suppressPreviewUntilMove = true;
+        lastMoveScrollY = window.scrollY;
+        hidePreview();
+        return;
+      }
+
+      suppressPreviewUntilMove = false;
+      lastMoveScrollY = window.scrollY;
+      if (hasPointerCoords) {
+        lastPointerX = e.clientX;
+        lastPointerY = e.clientY;
+      }
+
+      const { img, pos, title, meta, cat } = btn.dataset;
+      if (previewImg && img) {
+        if (previewImg.getAttribute('src') !== img) {
+          previewImg.src = img;
+        }
+        previewImg.alt = title || '';
+        previewImg.style.objectPosition = pos || 'center 50%';
+      }
+      if (previewMeta) previewMeta.textContent = meta || '';
+      if (previewCat) previewCat.textContent = cat || '';
+
+      const rect = btn.getBoundingClientRect();
+      const cx = hasPointerCoords && e.clientX > 0 ? e.clientX : rect.left + rect.width * 0.52;
+      const cy = hasPointerCoords && e.clientY > 0 ? e.clientY : rect.top + rect.height * 0.5;
+      positionPreview(cx, cy);
+
+      isPreviewActive = true;
+      if (window.gsap && !prefersReducedMotion) {
+        window.gsap.to(previewEl, {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.24,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+        if (reticleEl) {
+          window.gsap.to(reticleEl, {
+            autoAlpha: 1,
+            duration: 0.18,
+            overwrite: 'auto'
+          });
+        }
+      } else {
+        previewEl.style.opacity = '1';
+        previewEl.style.visibility = 'visible';
+      }
+    };
+
+    archiveIndex.addEventListener('mouseleave', hidePreview);
+    window.addEventListener('scroll', hidePreviewOnScroll, { passive: true });
+    window.addEventListener('blur', hidePreview);
+
+    archiveIndex.addEventListener('mousemove', (e) => {
+      const moved = Math.abs(e.clientX - lastPointerX) > 2 || Math.abs(e.clientY - lastPointerY) > 2;
+      if (moved) {
+        suppressPreviewUntilMove = false;
+        lastPointerX = e.clientX;
+        lastPointerY = e.clientY;
+        lastMoveScrollY = window.scrollY;
+      }
+      if (suppressPreviewUntilMove) return;
+
+      const hoveredBtn = e.target && e.target.closest ? e.target.closest('.archive-row-btn') : null;
+      if (hoveredBtn && !isPreviewActive) {
+        showRowPreview(hoveredBtn, e);
+      } else if (isPreviewActive) {
+        positionPreview(e.clientX, e.clientY);
       }
     });
-  });
 
-  contactForm?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!contactForm.checkValidity()) {
-      contactForm.reportValidity();
-      return;
-    }
-    const name = document.getElementById('senderName').value.trim();
-    formStatus.textContent = `Richiesta registrata per ${name}. Risposta dallo studio di Milano entro 24 ore lavorative.`;
-    contactForm.reset();
-  });
-
-  /* ========================================================================
-     Level 4 Motion — Approved Triad Only (TX-03 + M1 + M10)
-     ======================================================================== */
-
-  if (typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') {
-    return;
+    archiveIndex.querySelectorAll('.archive-row-btn').forEach((btn) => {
+      btn.addEventListener('mouseenter', (e) => showRowPreview(btn, e));
+      btn.addEventListener('focus', (e) => showRowPreview(btn, e));
+      btn.addEventListener('blur', hidePreview);
+    });
   }
 
+  // Open Dossier from any row button or Hero button
+  const openProjectDossierById = (projId) => {
+    hidePreview();
+    const idx = PROJECTS.findIndex((p) => p.id === projId);
+    renderCaseDialog(idx >= 0 ? idx : 0);
+    if (caseDialog) caseDialog.showModal();
+  };
+
+  document.querySelectorAll('[data-project-id]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      openProjectDossierById(trigger.dataset.projectId);
+    });
+  });
+
+  if (caseDialog && caseCloseBtn && casePrevBtn && caseNextBtn) {
+    caseCloseBtn.addEventListener('click', () => caseDialog.close());
+    casePrevBtn.addEventListener('click', () => renderCaseDialog(activeCaseIndex - 1));
+    caseNextBtn.addEventListener('click', () => renderCaseDialog(activeCaseIndex + 1));
+    caseDialog.addEventListener('click', (e) => {
+      if (e.target === caseDialog) caseDialog.close();
+    });
+  }
+
+  // =========================================================================
+  // 4. MECHANICAL 1PX FILTER BAR (TUTTI / PACKAGING / IDENTITY / CAMPAGNE)
+  // =========================================================================
+  const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+  const archiveItems = Array.from(document.querySelectorAll('.archive-item'));
+  const archiveStatus = document.getElementById('archive-status');
+
+  const applyFilter = (category) => {
+    hidePreview();
+    let visibleCount = 0;
+
+    archiveItems.forEach((item) => {
+      const match = category === 'ALL' || item.dataset.category === category;
+      item.hidden = !match;
+      if (match) visibleCount += 1;
+    });
+
+    filterBtns.forEach((btn) => {
+      const active = btn.dataset.filter === category;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+
+    if (archiveStatus) {
+      const padded = String(visibleCount).padStart(2, '0');
+      archiveStatus.textContent = `MOSTRATI ${padded} / 15`;
+    }
+
+    if (window.ScrollTrigger) {
+      window.ScrollTrigger.refresh();
+    }
+  };
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'ALL'));
+  });
+
+  document.querySelectorAll('[data-jump-filter]').forEach((link) => {
+    link.addEventListener('click', () => {
+      applyFilter(link.dataset.jumpFilter || 'ALL');
+    });
+  });
+
+  // =========================================================================
+  // 5. GSAP + SCROLLTRIGGER + LENIS CHOREOGRAPHY TRIAD (M6 + M7 + TX-06)
+  // =========================================================================
+  if (!window.gsap || !window.ScrollTrigger) return;
+  const { gsap, ScrollTrigger } = window;
   gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize quickTo when GSAP is ready
+  if (previewEl && isFinePointer) {
+    previewXTo = gsap.quickTo(previewEl, 'x', { duration: 0.32, ease: 'power3.out' });
+    previewYTo = gsap.quickTo(previewEl, 'y', { duration: 0.32, ease: 'power3.out' });
+  }
+  if (reticleEl && isFinePointer) {
+    reticleXTo = gsap.quickTo(reticleEl, 'x', { duration: 0.14, ease: 'power3.out' });
+    reticleYTo = gsap.quickTo(reticleEl, 'y', { duration: 0.14, ease: 'power3.out' });
+  }
+
   const mm = gsap.matchMedia();
 
-  // Header scroll separation (lightweight state toggle)
-  ScrollTrigger.create({
-    start: 'top -72',
-    onEnter: () => document.getElementById('siteHeader')?.classList.add('is-scrolled'),
-    onLeaveBack: () => document.getElementById('siteHeader')?.classList.remove('is-scrolled')
-  });
-
-  // Active Rail State across all sections (works cleanly regardless of reduced motion)
-  const railLabel = document.getElementById('railActiveLabel');
-  const railDots = Array.from(document.querySelectorAll('.rail-dot'));
-  const stageProgress = document.getElementById('stageProgress');
-  const stageCounter = document.getElementById('stageCounter');
-  const stageFill = document.getElementById('stageFill');
-
-  function setActiveRail(sectionId, labelText, stageNum) {
-    if (railLabel && labelText) railLabel.textContent = labelText;
-    railDots.forEach((dot) => {
-      dot.classList.toggle('is-active', dot.dataset.railTarget === sectionId);
-    });
-    if (stageCounter && stageFill && stageProgress) {
-      const num = stageNum !== null && stageNum !== undefined ? Number(stageNum) : 0;
-      if (num >= 1) {
-        stageProgress.classList.add('is-visible');
-        stageCounter.textContent = `${stageNum} / 06`;
-        gsap.to(stageFill, { scaleX: num / 6, duration: 0.35, ease: 'power3.out', overwrite: 'auto' });
-      } else {
-        stageProgress.classList.remove('is-visible');
-      }
-    }
-  }
-
-  document.querySelectorAll('section[data-chapter], article[data-chapter]').forEach((sec) => {
-    ScrollTrigger.create({
-      trigger: sec,
-      start: 'top 52%',
-      end: 'bottom 52%',
-      onEnter: () => setActiveRail(sec.id, sec.dataset.chapter, sec.dataset.stageNum),
-      onEnterBack: () => setActiveRail(sec.id, sec.dataset.chapter, sec.dataset.stageNum)
-    });
-  });
-
-  // Reduced-motion-safe Choreography
   mm.add('(prefers-reduced-motion: no-preference)', () => {
-    if (typeof window.Lenis !== 'undefined') {
-      lenisInstance = new Lenis({ lerp: 0.09, smoothWheel: true });
-      lenisInstance.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => lenisInstance.raf(time * 1000));
+    let lenis = null;
+    if (window.Lenis) {
+      lenis = new window.Lenis({
+        lerp: 0.09,
+        smoothWheel: true
+      });
+      lenis.on('scroll', () => {
+        ScrollTrigger.update();
+        updateHeaderState();
+        hidePreviewOnScroll();
+      });
+      const rafTick = (time) => lenis.raf(time * 1000);
+      gsap.ticker.add(rafTick);
       gsap.ticker.lagSmoothing(0);
     }
 
-    // A. TX-03 Outline-to-Solid Hero Entrance & Chapter Headings
-    const heroFills = document.querySelectorAll('.hero-display .tx03-fill');
-    if (heroFills.length) {
+    // M6. Curtain Reveal in Hero + Counter-Drift Display
+    const curtainEl = document.getElementById('hero-curtain');
+    if (curtainEl && heroBg) {
       gsap.fromTo(
-        heroFills,
-        { clipPath: 'inset(0 100% 0 0)', opacity: 0.15 },
+        curtainEl,
+        { clipPath: 'inset(12% 0% 12% 0%)' },
         {
-          clipPath: 'inset(0 0% 0 0)',
-          opacity: 1,
-          duration: 1.15,
-          stagger: 0.14,
-          ease: 'expo.out',
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.05,
+          ease: 'power4.inOut',
           clearProps: 'clipPath'
         }
       );
-    }
-
-    gsap.utils.toArray('.tx03-num').forEach((numEl) => {
-      gsap.from(numEl, {
-        opacity: 0.2,
-        y: 12,
-        duration: 0.75,
-        ease: 'power3.out',
-        immediateRender: false,
-        scrollTrigger: { trigger: numEl, start: 'top 86%', once: true }
-      });
-    });
-
-    // Global rail progress bar (scaleY)
-    const railFill = document.getElementById('railProgressFill');
-    if (railFill) {
       gsap.fromTo(
-        railFill,
-        { scaleY: 0.06 },
+        heroBg,
+        { scale: 1.08 },
         {
-          scaleY: 1,
-          ease: 'none',
-          scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.4 }
+          scale: 1,
+          duration: 1.3,
+          ease: 'power3.out',
+          clearProps: 'transform'
         }
       );
     }
 
-    // C. M10 Magnetic Reticle Cursor (Desktop fine pointer only)
-    const reticle = document.getElementById('reticleCursor');
-    const reticleText = document.getElementById('reticleText');
-    let onMove = null;
-    let onLeave = null;
-
-    if (reticle && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
-      const xTo = gsap.quickTo(reticle, 'x', { duration: 0.28, ease: 'power3.out' });
-      const yTo = gsap.quickTo(reticle, 'y', { duration: 0.28, ease: 'power3.out' });
-
-      onMove = (e) => {
-        reticle.classList.add('is-active');
-        xTo(e.clientX - 7);
-        yTo(e.clientY - 7);
-        const target = e.target.closest('[data-cursor]');
-        if (target && reticleText) {
-          reticleText.textContent = target.dataset.cursor;
-          reticle.classList.add('is-engaged');
-        } else {
-          reticle.classList.remove('is-engaged');
-        }
-      };
-
-      onLeave = () => reticle.classList.remove('is-active', 'is-engaged');
-
-      window.addEventListener('mousemove', onMove, { passive: true });
-      document.addEventListener('mouseleave', onLeave);
-    }
-
-    return () => {
-      if (onMove) window.removeEventListener('mousemove', onMove);
-      if (onLeave) document.removeEventListener('mouseleave', onLeave);
-      if (lenisInstance) {
-        lenisInstance.destroy();
-        lenisInstance = null;
-      }
-    };
-  });
-
-  // B. M1 Full-Screen Curtain Reveal (Desktop >= 960px & no-preference only)
-  mm.add('(min-width: 960px) and (prefers-reduced-motion: no-preference)', () => {
-    const panels = gsap.utils.toArray('.curtain-panel');
-    const triggers = [];
-
-    panels.forEach((panel, index) => {
-      if (index === panels.length - 1) return;
-      const veil = panel.querySelector('.panel-dim-veil');
-      const inner = panel.querySelector('.panel-inner');
-
-      const st = ScrollTrigger.create({
-        trigger: panel,
+    gsap.to('.typo-left-bleed', {
+      xPercent: -8,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
         start: 'top top',
         end: 'bottom top',
-        pin: true,
-        pinSpacing: false,
-        onUpdate: (self) => {
-          if (veil) gsap.set(veil, { opacity: self.progress * 0.48 });
-          if (inner) gsap.set(inner, { scale: 1 - self.progress * 0.035 });
+        scrub: 0.9
+      }
+    });
+    gsap.to('.typo-right-display', {
+      xPercent: 5,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.9
+      }
+    });
+
+    // Smooth internal anchor scrolling synced with Lenis
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const targetId = anchor.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        const targetEl = document.querySelector(targetId);
+        if (!targetEl) return;
+        e.preventDefault();
+        if (lenis) {
+          lenis.scrollTo(targetEl, { offset: 0 });
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
         }
       });
-      triggers.push(st);
     });
 
     return () => {
-      triggers.forEach((t) => t.kill());
-      panels.forEach((panel) => {
-        const veil = panel.querySelector('.panel-dim-veil');
-        const inner = panel.querySelector('.panel-inner');
-        if (veil) gsap.set(veil, { clearProps: 'opacity' });
-        if (inner) gsap.set(inner, { clearProps: 'scale' });
-      });
+      if (lenis) lenis.destroy();
     };
+  });
+
+  // M7. Pinned Editorial Split (Desktop >= 900px only)
+  mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+    const splitWrap = document.querySelector('[data-pin-split]');
+    const pinMedia = document.querySelector('[data-pin-media]');
+    const chapters = gsap.utils.toArray('.manifesto-chapter');
+    const plates = gsap.utils.toArray('.pin-plate');
+    const pinCounter = document.getElementById('pin-counter');
+    const pinLabel = document.getElementById('pin-label');
+    const pinProgress = document.getElementById('pin-progress');
+
+    const activateChapter = (idx) => {
+      plates.forEach((pl, pIdx) => pl.classList.toggle('is-active', pIdx === idx));
+      chapters.forEach((ch, cIdx) => ch.classList.toggle('is-active', cIdx === idx));
+      if (pinCounter) pinCounter.textContent = `0${idx + 1} / 03`;
+      const activeCh = chapters[idx];
+      if (pinLabel && activeCh && activeCh.dataset.label) {
+        pinLabel.textContent = activeCh.dataset.label;
+      }
+      if (pinProgress) {
+        pinProgress.style.transform = `scaleX(${((idx + 1) / 3).toFixed(3)})`;
+      }
+    };
+
+    if (splitWrap && pinMedia) {
+      ScrollTrigger.create({
+        trigger: splitWrap,
+        start: 'top 92px',
+        end: 'bottom bottom',
+        pin: pinMedia,
+        pinSpacing: false,
+        invalidateOnRefresh: true
+      });
+    }
+
+    chapters.forEach((chapter, idx) => {
+      ScrollTrigger.create({
+        trigger: chapter,
+        start: 'top 52%',
+        end: 'bottom 48%',
+        onEnter: () => activateChapter(idx),
+        onEnterBack: () => activateChapter(idx)
+      });
+    });
   });
 });
