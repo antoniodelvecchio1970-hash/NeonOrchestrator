@@ -3,6 +3,7 @@
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const pad = (n) => String(n).padStart(2, '0');
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -74,7 +75,7 @@
   const goWorksTop = () => scrollToY(works.getBoundingClientRect().top + window.scrollY - (st ? 0 : 0));
 
   /* ---------- Meta sincronizzata ---------- */
-  const catLabel = { brand: 'BRAND IDENTITY', packaging: 'PACKAGING', campagne: 'CAMPAGNE' };
+  const renderNumbers = () => visible().forEach((c, i) => { $('.film-num', c).textContent = pad(i + 1); });
 
   const setActive = (idx) => {
     const list = visible();
@@ -82,7 +83,7 @@
     activeIdx = Math.max(0, Math.min(list.length - 1, idx));
     list.forEach((c, i) => c.classList.toggle('is-active', i === activeIdx));
     const c = list[activeIdx];
-    metaEyebrow.textContent = catLabel[c.dataset.cat] || 'OPERE SELEZIONATE';
+    metaEyebrow.textContent = `OPERE SELEZIONATE · ${pad(activeIdx + 1)} / ${pad(list.length)}`;
     metaTitle.textContent = c.dataset.title;
     metaLead.textContent = c.dataset.lead;
   };
@@ -156,6 +157,7 @@
       b.classList.toggle('is-active', on);
       b.setAttribute('aria-pressed', String(on));
     });
+    renderNumbers();
     buildTrack();
     setActive(0);
     if (hasGSAP) ScrollTrigger.refresh();
@@ -175,153 +177,28 @@
     requestAnimationFrame(() => scrollToEl(works));
   });
 
-  /* ---------- Scheda caso full-screen (FLIP 2s-7s) ---------- */
-  const stage = $('#case-stage');
-  const stageBackdrop = $('#stage-backdrop');
-  const stageFrame = $('#stage-frame');
-  const stageImg = $('#stage-img');
-  const stageClose = $('#stage-close');
-  const stageCard = $('#stage-card');
-  const stageCat = $('#stage-cat');
-  const stageTitle = $('#stage-title');
-  const stageLead = $('#stage-lead');
-  const stageCta = $('#stage-cta');
-
-  let activeCard = null;
-  let stageOpen = false;
-  let stageAnimating = false;
-  let hideReticle = () => {};
-
+  /* ---------- Scheda caso (dialog) ---------- */
+  const dlg = $('#case-dialog');
+  const catLabel = { brand: 'BRAND IDENTITY', packaging: 'PACKAGING', campagne: 'CAMPAGNE' };
   const openCase = (card) => {
-    if (stageOpen || stageAnimating) return;
-    stageAnimating = true;
-    stageOpen = true;
-    activeCard = card;
-    hideReticle();
-
     const img = $('img', card);
-    const rect = card.getBoundingClientRect();
-    const pos = getComputedStyle(card).getPropertyValue('--pos').trim() || 'center center';
-
-    stageImg.src = img.currentSrc || img.src;
-    stageImg.alt = img.alt;
-    stageImg.style.objectPosition = pos;
-    stageCat.textContent = catLabel[card.dataset.cat] || '';
-    stageTitle.textContent = card.dataset.title;
-    stageLead.textContent = card.dataset.lead;
-
+    $('#dlg-img').src = img.currentSrc || img.src;
+    $('#dlg-img').alt = img.alt;
+    $('#dlg-img').style.objectPosition = getComputedStyle(card).getPropertyValue('--pos') || 'center';
+    $('#dlg-cat').textContent = catLabel[card.dataset.cat] || '';
+    $('#dlg-title').textContent = card.dataset.title;
+    $('#dlg-lead').textContent = card.dataset.lead;
     if (lenis) lenis.stop();
-    document.body.style.overflow = 'hidden';
-
-    stage.classList.add('is-open');
-    stage.setAttribute('aria-hidden', 'false');
-    stage.inert = false;
-
-    if (hasGSAP && !reduce) {
-      gsap.killTweensOf([stageBackdrop, stageFrame, stageImg, stageCard, stageClose]);
-      gsap.set(stageBackdrop, { opacity: 0 });
-      gsap.set(stageFrame, {
-        top: rect.top,
-        left: rect.left,
-        width: rect.width,
-        height: rect.height,
-      });
-      gsap.set(stageImg, { scale: 1.06 });
-      gsap.set(stageCard, { autoAlpha: 0, y: 24 });
-      gsap.set(stageClose, { autoAlpha: 0, y: -8 });
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          stageFrame.style.top = '0px';
-          stageFrame.style.left = '0px';
-          stageFrame.style.width = '100vw';
-          stageFrame.style.height = '100svh';
-          stageAnimating = false;
-          stageClose.focus({ preventScroll: true });
-        },
-      });
-      tl.to(stageBackdrop, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0)
-        .to(stageFrame, {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-          duration: 0.82,
-          ease: 'power4.inOut',
-        }, 0)
-        .to(stageImg, { scale: 1, duration: 0.95, ease: 'power3.out' }, 0)
-        .to(stageCard, { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power3.out' }, 0.52)
-        .to(stageClose, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.52);
-    } else {
-      Object.assign(stageFrame.style, { top: '0px', left: '0px', width: '100vw', height: '100svh' });
-      stageBackdrop.style.opacity = '1';
-      stageCard.style.opacity = '1';
-      stageCard.style.visibility = 'visible';
-      stageClose.style.opacity = '1';
-      stageClose.style.visibility = 'visible';
-      stageAnimating = false;
-      stageClose.focus({ preventScroll: true });
-    }
+    dlg.showModal();
   };
-
-  const finishClose = (onClosed) => {
-    stage.classList.remove('is-open');
-    stage.setAttribute('aria-hidden', 'true');
-    stage.inert = true;
-    document.body.style.overflow = '';
-    if (lenis && !menu.classList.contains('is-open')) lenis.start();
-    const returnCard = activeCard;
-    activeCard = null;
-    stageOpen = false;
-    stageAnimating = false;
-    hideReticle();
-    if (typeof onClosed === 'function') {
-      onClosed();
-    } else if (returnCard) {
-      const btn = $('.film-tag', returnCard);
-      if (btn) btn.focus({ preventScroll: true });
-    }
-  };
-
-  const closeCase = (onClosed) => {
-    if (!stageOpen || stageAnimating) return;
-    stageAnimating = true;
-
-    if (hasGSAP && !reduce && activeCard) {
-      const rect = activeCard.getBoundingClientRect();
-      gsap.killTweensOf([stageBackdrop, stageFrame, stageImg, stageCard, stageClose]);
-      gsap.set(stageFrame, {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-
-      const tl = gsap.timeline({ onComplete: () => finishClose(onClosed) });
-      tl.to([stageCard, stageClose], { autoAlpha: 0, duration: 0.22, ease: 'power2.in' }, 0)
-        .to(stageFrame, {
-          top: rect.top,
-          left: rect.left,
-          width: rect.width,
-          height: rect.height,
-          duration: 0.68,
-          ease: 'power4.inOut',
-        }, 0.1)
-        .to(stageBackdrop, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, 0.22);
-    } else {
-      finishClose(onClosed);
-    }
-  };
-
-  stageClose.addEventListener('click', () => closeCase());
-  stageFrame.addEventListener('click', () => closeCase());
-  stageBackdrop.addEventListener('click', () => closeCase());
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && stageOpen) closeCase();
-  });
-  stageCta.addEventListener('click', (e) => {
+  const closeCase = () => dlg.open && dlg.close();
+  dlg.addEventListener('close', () => { if (lenis && !menu.classList.contains('is-open')) lenis.start(); });
+  $('#dlg-close').addEventListener('click', closeCase);
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) closeCase(); });
+  $('#dlg-cta').addEventListener('click', (e) => {
     e.preventDefault();
-    closeCase(() => setTimeout(() => scrollToEl($('#contatti')), 60));
+    closeCase();
+    setTimeout(() => scrollToEl($('#contatti')), 60);
   });
   cards.forEach((c) => {
     $('.film-tag', c).addEventListener('click', () => openCase(c));
@@ -349,19 +226,83 @@
     const xTo = gsap.quickTo(reticle, 'x', { duration: 0.35, ease: 'power3.out' });
     const yTo = gsap.quickTo(reticle, 'y', { duration: 0.35, ease: 'power3.out' });
     let overCard = false;
-    const show = () => { if (stageOpen) return; overCard = true; gsap.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'power3.out', overwrite: 'auto' }); };
+    const show = () => { overCard = true; gsap.to(reticle, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'power3.out', overwrite: 'auto' }); };
     const hide = () => { overCard = false; gsap.to(reticle, { autoAlpha: 0, scale: 0.4, duration: 0.2, overwrite: 'auto' }); };
-    hideReticle = hide;
     window.addEventListener('mousemove', (e) => { xTo(e.clientX); yTo(e.clientY); }, { passive: true });
     cards.forEach((c) => {
       c.addEventListener('mouseenter', show);
       c.addEventListener('mouseleave', hide);
     });
     window.addEventListener('scroll', () => { if (!overCard) hide(); }, { passive: true });
+    dlg.addEventListener('close', hide);
     void label;
   }
 
+  /* ---------- Bio: Text Reveal allo scroll ---------- */
+  const splitWords = (el) => {
+    const walk = (node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const parts = node.textContent.split(/(\s+)/);
+        if (!parts.some((p) => p.trim())) return;
+        const frag = document.createDocumentFragment();
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'reveal-word';
+            span.textContent = part;
+            frag.appendChild(span);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        [...node.childNodes].forEach(walk);
+      }
+    };
+    walk(el);
+  };
+
+  const bio = $('#bio');
+  if (bio && hasGSAP && !reduce) {
+    $$('[data-reveal]', bio).forEach(splitWords);
+    const words = $$('.reveal-word', bio);
+    const listItems = $$('.bio-list li', bio);
+
+    if (words.length) {
+      gsap.set(words, { opacity: 0.14 });
+      gsap.to(words, {
+        opacity: 1,
+        stagger: 0.03,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: bio,
+          start: 'top 78%',
+          end: 'center 38%',
+          scrub: 0.6,
+        },
+      });
+    }
+    if (listItems.length) {
+      gsap.set(listItems, { opacity: 0.15, y: 12 });
+      gsap.to(listItems, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.05,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.bio-body',
+          start: 'top 82%',
+          end: 'bottom 70%',
+          scrub: 0.6,
+        },
+      });
+    }
+  }
+
   /* ---------- Avvio ---------- */
+  renderNumbers();
   const init = () => { buildTrack(); setActive(0); if (hasGSAP) ScrollTrigger.refresh(); };
   if (document.readyState === 'complete') init(); else window.addEventListener('load', init);
   document.fonts && document.fonts.ready.then(() => hasGSAP && ScrollTrigger.refresh());
