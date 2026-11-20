@@ -1,599 +1,208 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CASA TINTA — Brand Identity, Packaging &amp; Campagne | Barcellona · Torino</title>
-  <meta name="description" content="CASA TINTA è uno studio indipendente di brand identity, packaging design e campagne visive attivo tra Barcellona e Torino.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23161412'/%3E%3Crect x='7' y='5' width='18' height='22' fill='none' stroke='%23F4BE0B' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-  <script src="js/main.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>METRICA — Studio di comunicazione, grafica e design · Torino</title>
+<meta name="description" content="METRICA è uno studio di comunicazione, grafica e design a Torino. Identità, packaging e campagne per marchi che vogliono essere scelti.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a href="#main-content" class="skip-link visually-hidden">Salta al contenuto principale</a>
 
-  <header class="site-header" id="site-header">
-    <a class="brand-emblem" href="#hero" aria-label="CASA TINTA — Torna all'inizio">
-      <span class="yellow-frame" aria-hidden="true"></span>
-      <span class="emblem-text">CASA TINTA<br>BCN &middot; TORINO</span>
-    </a>
+<header class="site-header" id="top">
+  <a class="wordmark" href="#hero" data-nav>METRICA</a>
+  <button class="menu-trigger" type="button" aria-expanded="false" aria-controls="menu">
+    <span>MENU</span>
+    <span class="menu-lines" aria-hidden="true"><span></span><span></span></span>
+  </button>
+</header>
 
-    <nav class="header-nav" aria-label="Principale">
-      <ul class="header-nav-list" role="list">
-        <li><a href="#manifesto">Manifesto</a></li>
-        <li><a href="#archivio">Archivio</a></li>
-        <li><a href="#contatti">Contatti</a></li>
-      </ul>
-    </nav>
-
-    <button
-      type="button"
-      class="circle-menu"
-      id="nav-open-btn"
-      aria-label="Apri indice navigazione"
-      aria-controls="nav-dialog"
-      aria-expanded="false"
-    >&middot;&middot;&middot;</button>
-  </header>
-
-  <main id="main-content" tabindex="-1">
-    <!-- 1. HERO DIR 03 — MONUMENTAL CHROMA & SPLIT TYPOGRAPHY (NO 4-CARD STRIP) -->
-    <section class="split-hero" id="hero" aria-labelledby="hero-title">
-      <div class="hero-curtain" id="hero-curtain">
-        <img
-          id="hero-bg"
-          class="hero-bg"
-          src="assets/cocco-yellow.jpg"
-          alt="Cofanetti illustrati Cocco Botánica su cromia giallo zafferano, cobalto e vermiglio"
-          width="1440"
-          height="1440"
-          fetchpriority="high"
-          decoding="async"
-        >
-        <img
-          id="hero-bg-wipe"
-          class="hero-bg hero-bg-wipe"
-          src="assets/cocco-yellow.jpg"
-          alt=""
-          aria-hidden="true"
-          width="1440"
-          height="1440"
-        >
-        <div class="hero-scrim" aria-hidden="true"></div>
-      </div>
-
-      <button
-        type="button"
-        class="next-trigger"
-        id="hero-next-btn"
-        aria-label="Passa al progetto Hero successivo"
-      >NEXT</button>
-
-      <div class="split-typo-layer">
-        <div class="typo-left-bleed" aria-hidden="true">
-          <div class="left-kicker" id="hero-left-kicker">PACKAGING</div>
-          <div class="didone-left" id="hero-left-code">CK<br>25.</div>
-        </div>
-
-        <div class="typo-right-display">
-          <div class="right-kicker">BRAND IDENTITY &middot; PACKAGING &middot; CAMPAGNE</div>
-          <h1 class="didone-right" id="hero-title">CASA <span class="didone-slash" aria-hidden="true">/</span><br>TINTA.</h1>
-        </div>
-      </div>
-
-      <div class="case-callout" id="hero-callout">
-        <div class="callout-kicker" id="hero-callout-index">Progetto 01 / 15</div>
-        <h2 class="callout-title" id="hero-callout-title">Cocco Bot&aacute;nica</h2>
-        <p class="callout-copy" id="hero-callout-copy">Cofanetti illustrati in quattro cromie piene per pasticceria e infusi botanici a Lisbona.</p>
-        <div class="callout-actions">
-          <a class="callout-cta" href="#archivio">ESPLORA</a>
-          <button type="button" class="callout-dossier-btn" id="hero-open-dossier" data-project-id="01">SCHEDA &#8599;</button>
-        </div>
-      </div>
-
-      <div class="hero-bottom-meta">
-        <span class="hero-plate-counter" id="hero-plate-counter" aria-live="polite">TAVOLA 01 / 04</span>
-        <a class="hero-scroll-cue" href="#manifesto">SCORRI &darr;</a>
-      </div>
-    </section>
-
-    <!-- 2. MANIFESTO ASIMMETRICO & PINNED EDITORIAL SPLIT (M7) -->
-    <section class="manifesto-section" id="manifesto" aria-labelledby="manifesto-heading">
-      <div class="container">
-        <div class="section-intro-grid">
-          <div class="silence-col">
-            <p class="micro-kicker">01 &middot; MANIFESTO</p>
-            <p class="micro-sub">BARCELLONA &mdash; TORINO &middot; EST. 2018</p>
-          </div>
-          <div class="statement-col">
-            <h2 class="statement-heading" id="manifesto-heading">
-              Il colore non decora la forma: ne decide il peso nello spazio.
-            </h2>
-            <p class="editorial-body">
-              Fondato da Marta Soler e Matteo Rinaldi tra Poblenou e San Salvario, CASA TINTA progetta identit&agrave; visive, sistemi di packaging e campagne ad alta densit&agrave; materica. Ogni progetto nasce dalla tensione tra supporto reale e precisione tipografica, prima di estendersi in sistemi digitali essenziali.
-            </p>
-          </div>
-        </div>
-
-        <div class="section-rule" aria-hidden="true"></div>
-
-        <div class="pinned-split" data-pin-split>
-          <div class="pin-media-col">
-            <div class="pin-media-sticky" data-pin-media>
-              <figure class="pin-frame">
-                <img
-                  class="pin-plate is-active"
-                  data-plate="0"
-                  src="assets/dune-coffee.jpg"
-                  alt="Pouch in carta materica non patinata per Dune Roasters"
-                  width="1024"
-                  height="1536"
-                  loading="lazy"
-                  style="object-position: center 48%;"
-                >
-                <img
-                  class="pin-plate"
-                  data-plate="1"
-                  src="assets/moko-cobalt.jpg"
-                  alt="Identità visiva e cofanetti cobalto Mōko Cacao"
-                  width="1452"
-                  height="3264"
-                  loading="lazy"
-                  style="object-position: center 50%;"
-                >
-                <img
-                  class="pin-plate"
-                  data-plate="2"
-                  src="assets/outdoor-red.jpg"
-                  alt="Campagna pensiline monocromatiche vermiglio Rossa Outdoor"
-                  width="2000"
-                  height="1143"
-                  loading="lazy"
-                  style="object-position: center 48%;"
-                >
-              </figure>
-              <div class="pin-meta">
-                <span class="pin-counter" id="pin-counter">01 / 03</span>
-                <span class="pin-label" id="pin-label">MATERIA &amp; PIGMENTO &middot; DUNE ROASTERS</span>
-              </div>
-              <div class="pin-progress-track" aria-hidden="true">
-                <div class="pin-progress-fill" id="pin-progress"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pin-chapters-col">
-            <article class="manifesto-chapter is-active" data-chapter="0" data-label="MATERIA & PIGMENTO · DUNE ROASTERS">
-              <figure class="chapter-mobile-plate">
-                <img src="assets/dune-coffee.jpg" alt="Pouch in carta materica Dune Roasters" width="1024" height="1536" loading="lazy">
-              </figure>
-              <p class="chapter-index">CAPITOLO 01 / 03</p>
-              <h3 class="chapter-title">Materia &amp; Pigmento</h3>
-              <p class="chapter-copy">
-                Carte tinte in pasta, carte cotonate, latte litografate e fustelle su misura. Studiamo il comportamento della luce sui pigmenti saturi affinch&eacute; l'oggetto fisico parli da dieci metri di distanza e premi il tatto a venti centimetri.
-              </p>
-              <dl class="spec-strip">
-                <div class="spec-cell">
-                  <dt>DISCIPLINA</dt>
-                  <dd>Packaging Strutturale</dd>
-                </div>
-                <div class="spec-cell">
-                  <dt>SUPPORTI</dt>
-                  <dd>Carta, Latta, Rilievo</dd>
-                </div>
-                <div class="spec-cell">
-                  <dt>CASI CHIAVE</dt>
-                  <dd>Cocco, Dune, Velne</dd>
-                </div>
-              </dl>
-            </article>
-
-            <article class="manifesto-chapter" data-chapter="1" data-label="SISTEMA & SEGNO · MŌKO CACAO">
-              <figure class="chapter-mobile-plate">
-                <img src="assets/moko-cobalt.jpg" alt="Identità visiva Mōko Cacao" width="1452" height="3264" loading="lazy">
-              </figure>
-              <p class="chapter-index">CAPITOLO 02 / 03</p>
-              <h3 class="chapter-title">Sistema &amp; Segno</h3>
-              <p class="chapter-copy">
-                Costruiamo architetture d'identit&agrave; fondate su poche famiglie tipografiche autorevoli, rapporti di scala netti e gerarchie bilingui. Il marchio non &egrave; un francobollo isolato, ma una regola che organizza scaffali, listini e interfacce.
-              </p>
-              <dl class="spec-strip">
-                <div class="spec-cell">
-                  <dt>DISCIPLINA</dt>
-                  <dd>Brand Identity</dd>
-                </div>
-                <div class="spec-cell">
-                  <dt>GRAMMATICA</dt>
-                  <dd>Didone + Grotesque</dd>
-                </div>
-                <div class="spec-cell">
-                  <dt>CASI CHIAVE</dt>
-                  <dd>M&#333;ko, Fork &amp; Flame, Alpe</dd>
-                </div>
-              </dl>
-            </article>
-
-            <article class="manifesto-chapter" data-chapter="2" data-label="PRESENZA URBANA · ROSSA OUTDOOR">
-              <figure class="chapter-mobile-plate">
-                <img src="assets/outdoor-red.jpg" alt="Affissioni vermiglio Rossa Outdoor" width="2000" height="1143" loading="lazy">
-              </figure>
-              <p class="chapter-index">CAPITOLO 03 / 03</p>
-              <h3 class="chapter-title">Presenza Urbana</h3>
-              <p class="chapter-copy">
-                Dalla regia fotografica in studio con luce bicromatica fino alle grandi pensiline cittadine. Riduciamo il messaggio all'essenziale affinch&eacute; campitura piena, gesto tipografico e immagine convivano senza rumore superfluo.
-              </p>
-              <dl class="spec-strip">
-                <div class="spec-cell">
-                  <dt>DISCIPLINA</dt>
-                  <dd>Campagne &amp; OOH</dd>
-                </div>
-                <div class="spec-cell">
-                  <dt>MEDIA</dt>
-                  <dd>Stampa, Pensiline, Set</dd>
-                </div>
-                <div class="spec-cell">
-                  <dt>CASI CHIAVE</dt>
-                  <dd>Nova Orbit, Onda, Rossa</dd>
-                </div>
-              </dl>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. ARCHIVIO LAVORI INTERATTIVO (15 PROGETTI + BARRA FILTRI 1PX + TX-06 PREVIEW GIGANTE) -->
-    <section class="archive-section" id="archivio" aria-labelledby="archive-heading">
-      <div class="container">
-        <div class="section-intro-grid">
-          <div class="silence-col">
-            <p class="micro-kicker">02 &middot; ARCHIVIO LAVORI</p>
-            <p class="micro-sub">2024 &mdash; 2025 &middot; INDICE COMPLETO</p>
-          </div>
-          <div class="statement-col">
-            <h2 class="statement-heading" id="archive-heading">
-              Quindici artefatti tra carta, metallo e strada.
-            </h2>
-            <p class="editorial-body">
-              Passa sulle voci dell'indice per ispezionare l'anteprima fotografica a pieno formato oppure apri la scheda completa del singolo intervento.
-            </p>
-          </div>
-        </div>
-
-        <div class="filter-bar" role="group" aria-label="Filtra lavori per disciplina">
-          <button type="button" class="filter-btn is-active" data-filter="ALL" aria-pressed="true">
-            <span>TUTTI</span>
-            <span class="filter-count">(15)</span>
-          </button>
-          <button type="button" class="filter-btn" data-filter="PACKAGING" aria-pressed="false">
-            <span>PACKAGING</span>
-            <span class="filter-count">(07)</span>
-          </button>
-          <button type="button" class="filter-btn" data-filter="IDENTITY" aria-pressed="false">
-            <span>IDENTITY</span>
-            <span class="filter-count">(04)</span>
-          </button>
-          <button type="button" class="filter-btn" data-filter="CAMPAGNE" aria-pressed="false">
-            <span>CAMPAGNE</span>
-            <span class="filter-count">(04)</span>
-          </button>
-          <div class="filter-status" id="archive-status" aria-live="polite">MOSTRATI 15 / 15</div>
-        </div>
-
-        <ol class="archive-index" id="archive-index" role="list">
-          <li class="archive-item" data-id="01" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="01" data-img="assets/cocco-yellow.jpg" data-pos="center 46%" data-color="#F4BE0B" data-title="Cocco Botánica" data-meta="01 / 15 · LISBONA · 2025" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/cocco-yellow.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 46%;">
-              <span class="row-num">01</span>
-              <span class="row-title">Cocco Bot&aacute;nica</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Lisbona &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #F4BE0B;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="02" data-category="IDENTITY">
-            <button type="button" class="archive-row-btn" data-project-id="02" data-img="assets/moko-cobalt.jpg" data-pos="center 50%" data-color="#0C3EA8" data-title="Mōko Cacao" data-meta="02 / 15 · BARCELLONA · 2025" data-cat="IDENTITY">
-              <img class="row-mobile-thumb" src="assets/moko-cobalt.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 50%;">
-              <span class="row-num">02</span>
-              <span class="row-title">M&#333;ko Cacao</span>
-              <span class="row-cat">IDENTITY</span>
-              <span class="row-loc">Barcellona &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #0C3EA8;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="03" data-category="IDENTITY">
-            <button type="button" class="archive-row-btn" data-project-id="03" data-img="assets/dune-coffee.jpg" data-pos="center 48%" data-color="#9E5130" data-title="Dune Roasters" data-meta="03 / 15 · TORINO · 2025" data-cat="IDENTITY">
-              <img class="row-mobile-thumb" src="assets/dune-coffee.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 48%;">
-              <span class="row-num">03</span>
-              <span class="row-title">Dune Roasters</span>
-              <span class="row-cat">IDENTITY</span>
-              <span class="row-loc">Torino &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #9E5130;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="04" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="04" data-img="assets/velne-boxes.jpg" data-pos="center 42%" data-color="#5E5B24" data-title="Velne Parfums" data-meta="04 / 15 · MARSIGLIA · 2025" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/velne-boxes.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 42%;">
-              <span class="row-num">04</span>
-              <span class="row-title">Velne Parfums</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Marsiglia &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #5E5B24;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="05" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="05" data-img="assets/equipp-box.jpg" data-pos="center 50%" data-color="#B67E53" data-title="Equipp Audio" data-meta="05 / 15 · ZURIGO · 2024" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/equipp-box.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 50%;">
-              <span class="row-num">05</span>
-              <span class="row-title">Equipp Audio</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Zurigo &middot; 2024</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #B67E53;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="06" data-category="CAMPAGNE">
-            <button type="button" class="archive-row-btn" data-project-id="06" data-img="assets/orbit-campaign.jpg" data-pos="center 28%" data-color="#0F9EB0" data-title="Nova Orbit" data-meta="06 / 15 · MILANO · 2025" data-cat="CAMPAGNE">
-              <img class="row-mobile-thumb" src="assets/orbit-campaign.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 28%;">
-              <span class="row-num">06</span>
-              <span class="row-title">Nova Orbit</span>
-              <span class="row-cat">CAMPAGNE</span>
-              <span class="row-loc">Milano &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #0F9EB0;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="07" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="07" data-img="assets/docta-tins.webp" data-pos="center 50%" data-color="#E59824" data-title="Docta Botanicals" data-meta="07 / 15 · GINEVRA · 2024" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/docta-tins.webp" alt="" width="64" height="80" loading="lazy" style="object-position: center 50%;">
-              <span class="row-num">07</span>
-              <span class="row-title">Docta Botanicals</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Ginevra &middot; 2024</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #E59824;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="08" data-category="CAMPAGNE">
-            <button type="button" class="archive-row-btn" data-project-id="08" data-img="assets/street-campaign.jpg" data-pos="center 22%" data-color="#D4A51A" data-title="Onda Street" data-meta="08 / 15 · TORINO · 2025" data-cat="CAMPAGNE">
-              <img class="row-mobile-thumb" src="assets/street-campaign.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 22%;">
-              <span class="row-num">08</span>
-              <span class="row-title">Onda Street</span>
-              <span class="row-cat">CAMPAGNE</span>
-              <span class="row-loc">Torino &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #D4A51A;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="09" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="09" data-img="assets/pack-lineup.jpg" data-pos="center 50%" data-color="#D96846" data-title="Solera Lineup" data-meta="09 / 15 · VALENCIA · 2024" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/pack-lineup.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 50%;">
-              <span class="row-num">09</span>
-              <span class="row-title">Solera Lineup</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Valencia &middot; 2024</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #D96846;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="10" data-category="IDENTITY">
-            <button type="button" class="archive-row-btn" data-project-id="10" data-img="assets/fork-flame.jpg" data-pos="center 44%" data-color="#1E3F33" data-title="Fork & Flame" data-meta="10 / 15 · BOLOGNA · 2025" data-cat="IDENTITY">
-              <img class="row-mobile-thumb" src="assets/fork-flame.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 44%;">
-              <span class="row-num">10</span>
-              <span class="row-title">Fork &amp; Flame</span>
-              <span class="row-cat">IDENTITY</span>
-              <span class="row-loc">Bologna &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #1E3F33;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="11" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="11" data-img="assets/borgo-bags.png" data-pos="center 45%" data-color="#1B7D82" data-title="Borgo Mercato" data-meta="11 / 15 · PARMA · 2024" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/borgo-bags.png" alt="" width="64" height="80" loading="lazy" style="object-position: center 45%;">
-              <span class="row-num">11</span>
-              <span class="row-title">Borgo Mercato</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Parma &middot; 2024</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #1B7D82;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="12" data-category="IDENTITY">
-            <button type="button" class="archive-row-btn" data-project-id="12" data-img="assets/alpe-bags.jpg" data-pos="center 48%" data-color="#E88B72" data-title="Alpe Coofs" data-meta="12 / 15 · BOLZANO · 2024" data-cat="IDENTITY">
-              <img class="row-mobile-thumb" src="assets/alpe-bags.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 48%;">
-              <span class="row-num">12</span>
-              <span class="row-title">Alpe Coofs</span>
-              <span class="row-cat">IDENTITY</span>
-              <span class="row-loc">Bolzano &middot; 2024</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #E88B72;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="13" data-category="PACKAGING">
-            <button type="button" class="archive-row-btn" data-project-id="13" data-img="assets/lipty-fruit.jpg" data-pos="center 45%" data-color="#6D2DA6" data-title="Lipty Fruit" data-meta="13 / 15 · BARCELLONA · 2025" data-cat="PACKAGING">
-              <img class="row-mobile-thumb" src="assets/lipty-fruit.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 45%;">
-              <span class="row-num">13</span>
-              <span class="row-title">Lipty Fruit</span>
-              <span class="row-cat">PACKAGING</span>
-              <span class="row-loc">Barcellona &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #6D2DA6;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="14" data-category="CAMPAGNE">
-            <button type="button" class="archive-row-btn" data-project-id="14" data-img="assets/cacao-burst.jpg" data-pos="center 46%" data-color="#7A3B21" data-title="Super Coffee" data-meta="14 / 15 · MADRID · 2024" data-cat="CAMPAGNE">
-              <img class="row-mobile-thumb" src="assets/cacao-burst.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 46%;">
-              <span class="row-num">14</span>
-              <span class="row-title">Super Coffee</span>
-              <span class="row-cat">CAMPAGNE</span>
-              <span class="row-loc">Madrid &middot; 2024</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #7A3B21;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-
-          <li class="archive-item" data-id="15" data-category="CAMPAGNE">
-            <button type="button" class="archive-row-btn" data-project-id="15" data-img="assets/outdoor-red.jpg" data-pos="center 45%" data-color="#D93829" data-title="Rossa Outdoor" data-meta="15 / 15 · BARCELLONA · 2025" data-cat="CAMPAGNE">
-              <img class="row-mobile-thumb" src="assets/outdoor-red.jpg" alt="" width="64" height="80" loading="lazy" style="object-position: center 45%;">
-              <span class="row-num">15</span>
-              <span class="row-title">Rossa Outdoor</span>
-              <span class="row-cat">CAMPAGNE</span>
-              <span class="row-loc">Barcellona &middot; 2025</span>
-              <span class="row-action"><span class="row-swatch" style="background-color: #D93829;" aria-hidden="true"></span>APRI &#8599;</span>
-            </button>
-          </li>
-        </ol>
-      </div>
-    </section>
-  </main>
-
-  <!-- 4. FOOTER MONUMENTALE -->
-  <footer class="site-footer" id="contatti">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-inquiry">
-          <p class="footer-kicker">03 &middot; CONTATTI &amp; COMMISSIONI</p>
-          <h2 class="footer-heading">Hai un sistema da costruire? Parliamone.</h2>
-          <a class="footer-email" href="mailto:hola@casatinta.eu">hola@casatinta.eu &#8599;</a>
-        </div>
-
-        <div class="footer-col">
-          <p class="footer-col-label">BARCELLONA</p>
-          <p class="footer-col-text">
-            Carrer de Pujades 118<br>
-            08005 Poblenou<br>
-            +34 932 804 119
-          </p>
-        </div>
-
-        <div class="footer-col">
-          <p class="footer-col-label">TORINO</p>
-          <p class="footer-col-text">
-            Via Madama Cristina 42<br>
-            10125 San Salvario<br>
-            +39 011 890 4210
-          </p>
-        </div>
-
-        <div class="footer-col">
-          <p class="footer-col-label">DISCIPLINE</p>
-          <ul class="footer-links" role="list">
-            <li><a href="#archivio" data-jump-filter="PACKAGING">Packaging (07) &#8599;</a></li>
-            <li><a href="#archivio" data-jump-filter="IDENTITY">Brand Identity (04) &#8599;</a></li>
-            <li><a href="#archivio" data-jump-filter="CAMPAGNE">Campagne (04) &#8599;</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-monument" aria-hidden="true">
-      <span>CASA <span class="didone-slash">/</span> TINTA.</span>
-    </div>
-
-    <div class="container">
-      <div class="footer-colophon">
-        <span>&copy; 2026 CASA TINTA &mdash; MARTA SOLER &amp; MATTEO RINALDI</span>
-        <span>BARCELLONA &middot; TORINO</span>
-        <a href="#hero" class="footer-top-link">TORNA SU &uarr;</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- TX-06 GIANT FLOATING ARCHIVE PREVIEW & RETICLE -->
-  <div class="archive-preview" id="archive-preview" aria-hidden="true">
-    <div class="preview-frame">
-      <img id="archive-preview-img" src="assets/cocco-yellow.jpg" alt="" width="440" height="550">
-      <span class="reticle-corner tl"></span>
-      <span class="reticle-corner tr"></span>
-      <span class="reticle-corner bl"></span>
-      <span class="reticle-corner br"></span>
-    </div>
-    <div class="preview-caption">
-      <span id="archive-preview-meta">01 / 15 &middot; LISBONA</span>
-      <span class="preview-caption-cat" id="archive-preview-cat">PACKAGING</span>
-    </div>
+<div class="menu" id="menu" aria-hidden="true" inert>
+  <nav class="menu-nav" aria-label="Navigazione principale">
+    <a href="#works" data-nav><span class="menu-idx">01</span>Opere selezionate</a>
+    <a href="#ambiti" data-nav><span class="menu-idx">02</span>Ambiti operativi</a>
+    <a href="#contatti" data-nav><span class="menu-idx">03</span>Contatti</a>
+  </nav>
+  <div class="menu-foot">
+    <span>+39 011 554 2180</span>
+    <span>progetti@metricastudio.it</span>
+    <span>Via Maria Vittoria 24, Torino</span>
   </div>
-  <div class="archive-reticle" id="archive-reticle" aria-hidden="true"></div>
+</div>
 
-  <!-- NATIVE NAVIGATION DIALOG -->
-  <dialog class="nav-dialog" id="nav-dialog" aria-labelledby="nav-dialog-title">
-    <div class="nav-dialog-inner">
-      <div class="nav-dialog-top">
-        <span class="micro-kicker light" id="nav-dialog-title">INDICE &middot; CASA TINTA</span>
-        <button type="button" class="dialog-close-btn light" id="nav-close-btn">CHIUDI &#10005;</button>
-      </div>
-      <nav aria-label="Indice completo">
-        <ol class="nav-dialog-list" role="list">
-          <li><a href="#hero" class="nav-dialog-link"><span class="nav-idx">00</span><span>Hero &amp; Tavole</span></a></li>
-          <li><a href="#manifesto" class="nav-dialog-link"><span class="nav-idx">01</span><span>Manifesto &amp; Metodo</span></a></li>
-          <li><a href="#archivio" class="nav-dialog-link"><span class="nav-idx">02</span><span>Archivio Lavori (15)</span></a></li>
-          <li><a href="#contatti" class="nav-dialog-link"><span class="nav-idx">03</span><span>Contatti &amp; Sedi</span></a></li>
-        </ol>
-      </nav>
-      <div class="nav-dialog-foot">
-        <span>BARCELLONA &mdash; POBLENOU</span>
-        <span>TORINO &mdash; SAN SALVARIO</span>
-        <a href="mailto:hola@casatinta.eu">hola@casatinta.eu</a>
+<main>
+  <!-- HERO — M2 Expanding Frame -->
+  <section class="hero" id="hero" aria-label="Presentazione">
+    <div class="hero-media">
+      <img src="assets/orbit-campaign.jpg" alt="Ritratto chiaroscurale con casco da astronauta, direzione fotografica METRICA" fetchpriority="high">
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="hero-center">
+      <p class="eyebrow">METRICA · DIREZIONE ARTISTICA</p>
+      <h1 class="hero-title">Sistemi visivi memorabili.</h1>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-statement">Posizionamento strategico, arte visiva ed ecosistemi digitali per brand che guidano il mercato.</p>
+      <a class="scroll-circle" href="#works" data-nav aria-label="Vai alle opere selezionate">&darr;</a>
+      <p class="hero-socials">IG &middot; LI &middot; BE</p>
+    </div>
+  </section>
+
+  <!-- OPERE SELEZIONATE — TX-04 / M4 Filmstrip -->
+  <section class="works" id="works" aria-labelledby="works-title">
+    <h2 class="visually-hidden" id="works-title">Opere selezionate</h2>
+    <div class="film-viewport">
+      <div class="film-track" id="track">
+
+        <article class="film-card" data-cat="brand" data-title="Velne Parfums" data-lead="Identità visiva e sistema packaging goffrato a secco per quattro fragranze botaniche." style="--pos:center 38%;--scale:1.12">
+          <img src="assets/velne-boxes.jpg" alt="Velne Parfums, quattro astucci goffrati a secco">
+          <span class="film-num">01</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="packaging" data-title="Super Coffee" data-lead="Art direction di lancio, sistema packaging ad alto impatto e direzione fotografica di prodotto." style="--pos:center 42%">
+          <img src="assets/cacao-burst.jpg" alt="Lattina Super Coffee immersa nella polvere di cacao">
+          <span class="film-num">02</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="campagne" data-title="Solaria Eyewear" data-lead="Campagna outdoor per la collezione sole: pensilina rossa, luce radente e un solo volto." style="--pos:center 45%">
+          <img src="assets/outdoor-red.jpg" alt="Pensilina rossa con manifesto di occhiali da sole">
+          <span class="film-num">03</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="packaging" data-title="Docta Botanicals" data-lead="Collezione di astucci illustrati a più colori per una linea di cioccolato botanico." style="--pos:center center">
+          <img src="assets/docta-tins.webp" alt="Astucci illustrati Docta Botanicals con motivi tropicali">
+          <span class="film-num">04</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="brand" data-title="Equipp Systems" data-lead="Naming, identità e confezione per un servizio di noleggio tecnologico." style="--pos:center 55%">
+          <img src="assets/equipp-box.jpg" alt="Scatola Equipp con sfumatura notte-rame">
+          <span class="film-num">05</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="campagne" data-title="Atelier Nove" data-lead="Campagna fotografica e posizionamento per il lancio della collezione urbana." style="--pos:center 12%">
+          <img src="assets/street-campaign.jpg" alt="Ritratto editoriale in tuta verde, campagna Atelier Nove">
+          <span class="film-num">06</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="packaging" data-title="Dune Coffee" data-lead="Sistema di sacchetti per torrefazione: tre origini, tre colori, un solo segno ondulato." style="--pos:center 42%">
+          <img src="assets/dune-coffee.jpg" alt="Tre confezioni Dune Coffee con tazzina di espresso">
+          <span class="film-num">07</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="brand" data-title="Fork &amp; Flame" data-lead="Identità e kit di packaging coordinato per una cucina a consegna." style="--pos:center 55%">
+          <img src="assets/fork-flame.jpg" alt="Sistema coordinato Fork &amp; Flame: sacchetto, scatole, bicchiere">
+          <span class="film-num">08</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="packaging" data-title="Borgo Alto" data-lead="Linea di shopper illustrate con paesaggi di borgo, dal bozzetto alla stampa." style="--pos:center 48%">
+          <img src="assets/borgo-bags.png" alt="Shopper illustrate con paesaggi di borgo">
+          <span class="film-num">09</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="campagne" data-title="Orbit" data-lead="Concept di campagna e art direction fotografica per un lancio ad alto contrasto." style="--pos:30% 28%">
+          <img src="assets/orbit-campaign.jpg" alt="Campagna Orbit, ritratto con casco e luce neon">
+          <span class="film-num">10</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="brand" data-title="Arca Torrefazione" data-lead="Sei miscele, sei colori e un'unica gabbia tipografica per l'intera gamma." style="--pos:center 55%">
+          <img src="assets/pack-lineup.jpg" alt="Sei confezioni di caffè in colori diversi">
+          <span class="film-num">11</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
+        <article class="film-card" data-cat="packaging" data-title="Cocco Chocolat" data-lead="Astucci illustrati su fondo giallo: un ritratto diverso per ogni gusto." style="--pos:center 50%">
+          <img src="assets/cocco-yellow.jpg" alt="Astucci Cocco con ritratti illustrati su fondo giallo">
+          <span class="film-num">12</span>
+          <button class="film-tag" type="button">APRI CASO &#8599;</button>
+        </article>
+
       </div>
     </div>
-  </dialog>
 
-  <!-- NATIVE CASE STUDY DOSSIER DIALOG -->
-  <dialog class="case-dialog" id="case-dialog" aria-labelledby="case-dialog-title">
-    <div class="case-dialog-grid">
-      <div class="case-dialog-media">
-        <img id="case-dialog-img" src="assets/cocco-yellow.jpg" alt="Immagine progetto" width="900" height="1100">
+    <div class="film-meta" id="film-meta">
+      <div class="film-meta-text" aria-live="polite">
+        <p class="meta-eyebrow" id="meta-eyebrow">OPERE SELEZIONATE · 01 / 12</p>
+        <h3 class="case-title" id="meta-title">Velne Parfums</h3>
+        <p class="case-lead" id="meta-lead">Identità visiva e sistema packaging goffrato a secco per quattro fragranze botaniche.</p>
       </div>
-      <div class="case-dialog-body">
-        <div class="case-dialog-top">
-          <span class="micro-kicker" id="case-dialog-index">PROGETTO 01 / 15</span>
-          <button type="button" class="dialog-close-btn" id="case-close-btn">CHIUDI &#10005;</button>
-        </div>
-
-        <h2 class="case-dialog-title" id="case-dialog-title">Cocco Bot&aacute;nica</h2>
-        <p class="case-dialog-summary" id="case-dialog-summary"></p>
-
-        <dl class="case-spec-table">
-          <div class="case-spec-row">
-            <dt>CLIENTE</dt>
-            <dd id="case-spec-client"></dd>
-          </div>
-          <div class="case-spec-row">
-            <dt>DISCIPLINA</dt>
-            <dd id="case-spec-cat"></dd>
-          </div>
-          <div class="case-spec-row">
-            <dt>SEDE</dt>
-            <dd id="case-spec-city"></dd>
-          </div>
-          <div class="case-spec-row">
-            <dt>ANNO</dt>
-            <dd id="case-spec-year"></dd>
-          </div>
-          <div class="case-spec-row">
-            <dt>PIGMENTO</dt>
-            <dd class="case-spec-swatch-wrap">
-              <span class="row-swatch" id="case-spec-swatch" aria-hidden="true"></span>
-              <span id="case-spec-color"></span>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="case-dialog-nav">
-          <button type="button" class="case-nav-btn" id="case-prev-btn">&larr; PRECEDENTE</button>
-          <button type="button" class="case-nav-btn" id="case-next-btn">SUCCESSIVO &rarr;</button>
-        </div>
+      <div class="film-arrows">
+        <button class="arrow-btn" type="button" id="prev" aria-label="Progetto precedente">&larr;</button>
+        <button class="arrow-btn arrow-btn--solid" type="button" id="next" aria-label="Progetto successivo">&rarr;</button>
       </div>
     </div>
-  </dialog>
+
+    <search class="filter-bar" aria-label="Filtra i lavori">
+      <button class="filter-cell is-active" type="button" data-filter="all" aria-pressed="true">TUTTI (<span data-count="all">12</span>)</button>
+      <button class="filter-cell" type="button" data-filter="brand" aria-pressed="false">BRAND IDENTITY</button>
+      <button class="filter-cell" type="button" data-filter="packaging" aria-pressed="false">PACKAGING</button>
+      <button class="filter-cell" type="button" data-filter="campagne" aria-pressed="false">CAMPAGNE</button>
+      <button class="filter-cell filter-cell--view" type="button" id="view-toggle" aria-pressed="false">VISTA GRIGLIA</button>
+    </search>
+  </section>
+
+  <!-- 02 · AMBITI OPERATIVI -->
+  <section class="ambiti" id="ambiti" aria-labelledby="ambiti-title">
+    <p class="ambiti-kicker">02 &middot; AMBITI OPERATIVI</p>
+    <h2 class="ambiti-statement" id="ambiti-title">Dalla strategia alla forma: costruiamo percezione e autorevolezza commerciale.</h2>
+    <div class="ambiti-cols">
+      <div class="ambiti-col">
+        <h3>Identità</h3>
+        <p>Design system, direzione tipografica e posizionamento per elevare il valore percepito.</p>
+      </div>
+      <div class="ambiti-col">
+        <h3>Comunicazione</h3>
+        <p>Lanci visivi chiaroscurali, packaging da collezione ed editoria aziendale ad alto impatto.</p>
+      </div>
+      <div class="ambiti-col">
+        <h3>Digitale</h3>
+        <p>Esperienze web immersive pensate per guidare i clienti verso richieste qualificate.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="contatti">
+  <p class="footer-eyebrow">NUOVI PROGETTI &middot; 2026</p>
+  <h2 class="footer-title">Costruiamo la tua prossima identità.</h2>
+  <a class="footer-cta" href="mailto:progetti@metricastudio.it?subject=Richiesta%20di%20consulenza">RICHIEDI UNA CONSULENZA &rarr;</a>
+  <div class="footer-cols">
+    <div><p class="f-label">Parla</p><a class="f-val" href="tel:+390115542180">+39 011 554 2180</a></div>
+    <div><p class="f-label">Incontra</p><p class="f-val">Via Maria Vittoria 24, Torino</p></div>
+    <div><p class="f-label">Scrivi</p><a class="f-val" href="mailto:progetti@metricastudio.it">progetti@metricastudio.it</a></div>
+  </div>
+</footer>
+
+<!-- Scheda caso -->
+<dialog class="case-dialog" id="case-dialog" aria-labelledby="dlg-title">
+  <button class="dlg-close" type="button" id="dlg-close" aria-label="Chiudi">CHIUDI &times;</button>
+  <div class="dlg-media"><img id="dlg-img" alt=""></div>
+  <div class="dlg-body">
+    <p class="meta-eyebrow" id="dlg-cat"></p>
+    <h3 class="case-title" id="dlg-title"></h3>
+    <p class="case-lead" id="dlg-lead"></p>
+    <a class="footer-cta footer-cta--sm" href="#contatti" id="dlg-cta">PARLIAMONE &rarr;</a>
+  </div>
+</dialog>
+
+<!-- M10 Magnetic Reticle -->
+<div class="reticle" id="reticle" aria-hidden="true"><span>APRI CASO</span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
