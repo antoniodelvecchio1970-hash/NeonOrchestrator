@@ -81,7 +81,7 @@
     activeIdx = Math.max(0, Math.min(list.length - 1, idx));
     list.forEach((c, i) => c.classList.toggle('is-active', i === activeIdx));
     const c = list[activeIdx];
-    metaEyebrow.textContent = `progetti selezionati · ${pad(activeIdx + 1)} / ${pad(list.length)}`;
+    metaEyebrow.textContent = `OPERE SELEZIONATE · ${pad(activeIdx + 1)} / ${pad(list.length)}`;
     metaTitle.textContent = c.dataset.title;
     metaLead.textContent = c.dataset.lead;
   };
@@ -124,13 +124,19 @@
     setActive(0);
   };
 
-  const skipWorks = $('#skip-works');
-  if (skipWorks) {
-    skipWorks.addEventListener('click', () => {
-      const bioEl = $('#bio');
-      if (bioEl) scrollToEl(bioEl);
-    });
-  }
+  const goTo = (idx) => {
+    const n = visible().length;
+    const i = Math.max(0, Math.min(n - 1, idx));
+    if (st) {
+      scrollToY(st.start + (st.end - st.start) * (n > 1 ? i / (n - 1) : 0));
+    } else {
+      const c = visible()[i];
+      $('.film-viewport', works).scrollTo({ left: c.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft), behavior: 'smooth' });
+      setActive(i);
+    }
+  };
+  $('#prev').addEventListener('click', () => goTo(activeIdx - 1));
+  $('#next').addEventListener('click', () => goTo(activeIdx + 1));
 
   // fallback nativo: aggiorna meta con lo scroll orizzontale
   $('.film-viewport', works).addEventListener('scroll', (e) => {
@@ -162,8 +168,7 @@
     gridMode = !gridMode;
     works.classList.toggle('is-grid', gridMode);
     viewToggle.setAttribute('aria-pressed', String(gridMode));
-    const labelEl = $('span', viewToggle);
-    if (labelEl) labelEl.textContent = gridMode ? 'vista filmstrip' : 'vista griglia';
+    viewToggle.textContent = gridMode ? 'VISTA FILMSTRIP' : 'VISTA GRIGLIA';
     buildTrack();
     if (hasGSAP) ScrollTrigger.refresh();
     requestAnimationFrame(() => scrollToEl(works));

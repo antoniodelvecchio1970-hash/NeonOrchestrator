@@ -7,7 +7,7 @@
 <meta name="description" content="METRICA è uno studio di comunicazione, grafica e design a Torino. Identità, packaging e campagne per marchi che vogliono essere scelti.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -23,7 +23,7 @@
 
 <div class="menu" id="menu" aria-hidden="true" inert>
   <nav class="menu-nav" aria-label="Navigazione principale">
-    <a href="#works" data-nav><span class="menu-idx">01</span><span class="menu-label">Progetti selezionati</span></a>
+    <a href="#works" data-nav><span class="menu-idx">01</span><span class="menu-label">Opere selezionate</span></a>
     <a href="#bio" data-nav><span class="menu-idx">02</span><span class="menu-label">Chi sono</span></a>
     <a href="#ambiti" data-nav><span class="menu-idx">03</span><span class="menu-label">Ambiti operativi</span></a>
     <a href="#contatti" data-nav><span class="menu-idx">04</span><span class="menu-label">Contatti</span></a>
@@ -48,21 +48,14 @@
     </div>
     <div class="hero-bottom">
       <p class="hero-statement">Posizionamento strategico, arte visiva ed ecosistemi digitali per brand che guidano il mercato.</p>
-      <a class="scroll-circle" href="#works" data-nav aria-label="Vai ai progetti selezionati">&darr;</a>
+      <a class="scroll-circle" href="#works" data-nav aria-label="Vai alle opere selezionate">&darr;</a>
       <p class="hero-socials">IG &middot; LI &middot; BE</p>
     </div>
   </section>
 
-  <!-- ARCHIVIO 2026 — Text reveal orizzontale allo scroll -->
-  <section class="archive-band" id="archive" aria-label="Archivio 2026">
-    <div class="archive-reveal">
-      <p class="archive-text" id="archive-text">Archivio 2026</p>
-    </div>
-  </section>
-
-  <!-- PROGETTI SELEZIONATI — TX-04 / M4 Filmstrip -->
+  <!-- OPERE SELEZIONATE — TX-04 / M4 Filmstrip -->
   <section class="works" id="works" aria-labelledby="works-title">
-    <h2 class="visually-hidden" id="works-title">Progetti selezionati</h2>
+    <h2 class="visually-hidden" id="works-title">Opere selezionate</h2>
     <div class="film-viewport">
       <div class="film-track" id="track">
 
@@ -131,25 +124,13 @@
 
     <div class="film-meta" id="film-meta">
       <div class="film-meta-text" aria-live="polite">
-        <p class="meta-eyebrow" id="meta-eyebrow">progetti selezionati · 01 / 12</p>
+        <p class="meta-eyebrow" id="meta-eyebrow">OPERE SELEZIONATE · 01 / 12</p>
         <h3 class="case-title" id="meta-title">Velne Parfums</h3>
         <p class="case-lead" id="meta-lead">Identità visiva e sistema packaging goffrato a secco per quattro fragranze botaniche.</p>
       </div>
-      <div class="film-actions">
-        <button class="action-btn action-btn--skip" type="button" id="skip-works" aria-label="Vai alla sezione successiva" title="Vai giù nella pagina">
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M8 2.5V13.5M8 13.5L3.5 9M8 13.5L12.5 9" stroke="currentColor" stroke-width="1.35" stroke-linecap="square"/>
-          </svg>
-        </button>
-        <button class="action-btn action-btn--grid" type="button" id="view-toggle" aria-pressed="false">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <rect x="1" y="1" width="5" height="5" stroke="currentColor" stroke-width="1.2"/>
-            <rect x="8" y="1" width="5" height="5" stroke="currentColor" stroke-width="1.2"/>
-            <rect x="1" y="8" width="5" height="5" stroke="currentColor" stroke-width="1.2"/>
-            <rect x="8" y="8" width="5" height="5" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          <span>vista griglia</span>
-        </button>
+      <div class="film-arrows">
+        <button class="arrow-btn" type="button" id="prev" aria-label="Progetto precedente">&larr;</button>
+        <button class="arrow-btn arrow-btn--solid" type="button" id="next" aria-label="Progetto successivo">&rarr;</button>
       </div>
     </div>
 
@@ -158,6 +139,7 @@
       <button class="filter-cell" type="button" data-filter="brand" aria-pressed="false">BRAND IDENTITY</button>
       <button class="filter-cell" type="button" data-filter="packaging" aria-pressed="false">PACKAGING</button>
       <button class="filter-cell" type="button" data-filter="campagne" aria-pressed="false">CAMPAGNE</button>
+      <button class="filter-cell filter-cell--view" type="button" id="view-toggle" aria-pressed="false">VISTA GRIGLIA</button>
     </search>
   </section>
 
@@ -224,7 +206,7 @@
       <h4 class="footer__col-title">Navigazione</h4>
       <ul class="footer__links">
         <li><a href="#hero" data-nav>Home</a></li>
-        <li><a href="#works" data-nav>Progetti selezionati</a></li>
+        <li><a href="#works" data-nav>Opere selezionate</a></li>
         <li><a href="#bio" data-nav>Chi sono</a></li>
         <li><a href="#ambiti" data-nav>Ambiti operativi</a></li>
         <li><a href="#contatti" data-nav>Contatti</a></li>
