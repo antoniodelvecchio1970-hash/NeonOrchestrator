@@ -94,8 +94,6 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
 .menu-nav a:hover { color: var(--accent); padding-left: 14px; }
 .menu-label {
   display: inline-block;
-  scale: 1.15 1;
-  transform-origin: left center;
 }
 .menu-idx { font-family: var(--font-sans); font-size: 11px; letter-spacing: .22em; color: var(--accent); min-width: 4ch; }
 .menu-foot {
@@ -132,8 +130,6 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
 .hero-title-inner {
   display: inline-block;
   white-space: nowrap;
-  scale: 1.15 1;
-  transform-origin: center center;
 }
 .hero-bottom { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 20px; }
 .hero-statement { font-size: clamp(12px, 1vw, 14px); line-height: 1.6; color: rgba(242,240,235,.88); max-width: 34ch; }
@@ -149,31 +145,26 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
 /* ---------- ARCHIVIO 2026 BAND ---------- */
 .archive-band {
   background: var(--bg-light);
-  color: var(--ink-dark);
-  padding: clamp(56px, 8vw, 110px) var(--pad) clamp(12px, 2vw, 24px);
-  overflow: hidden;
-}
-.archive-reveal {
-  overflow: hidden;
+  color: var(--accent-soft);
+  padding: clamp(36px, 5vw, 64px) var(--pad) clamp(6px, 1vw, 12px);
+  text-align: center;
 }
 .archive-text {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2.6rem, 6.4vw, 6.2rem);
-  line-height: .96;
-  letter-spacing: -.015em;
-  color: var(--ink-dark);
-  will-change: clip-path, transform;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 4.16vw, 4.32rem);
+  line-height: 1.02;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
 }
 
 /* ---------- WORKS / FILMSTRIP ---------- */
 .works {
   position: relative;
-  min-height: 100svh;
   background: var(--bg-light);
-  padding: calc(var(--header-h) + 3svh) 0 clamp(18px, 3svh, 32px);
-  display: flex; flex-direction: column; justify-content: center; gap: clamp(22px, 4.2svh, 48px);
+  padding: clamp(18px, 2.5svh, 32px) 0 clamp(24px, 4svh, 48px);
+  display: flex; flex-direction: column; justify-content: flex-start; gap: clamp(22px, 4.2svh, 48px);
   overflow: hidden;
 }
 .film-viewport { width: 100%; overflow: hidden; }
@@ -219,9 +210,6 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
 .case-title {
   display: inline-block;
   font-family: var(--font-display); font-weight: 300; font-size: clamp(30px, 3.4vw, 52px); line-height: 1; color: var(--ink-dark); margin-bottom: 6px;
-  scale: 1.15 1;
-  transform-origin: left center;
-  max-width: calc(100% / 1.15);
 }
 .case-lead {
   font-size: clamp(14px, 1.15vw, 17px); line-height: 1.5; color: var(--ink-muted);
@@ -303,9 +291,6 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
   font-family: var(--font-display); font-weight: 300;
   font-size: clamp(30px, 4vw, 60px); line-height: 1.06;
   color: var(--ink-dark);
-  scale: 1.15 1;
-  transform-origin: left center;
-  max-width: calc(100% / 1.15);
 }
 .bio-competences { display: flex; flex-direction: column; gap: 20px; }
 .bio-list {
@@ -342,16 +327,11 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
   grid-column: 2;
   display: inline-block;
   font-family: var(--font-display); font-weight: 300; font-size: clamp(28px, 3.6vw, 56px); line-height: 1.1; max-width: 26ch;
-  scale: 1.15 1;
-  transform-origin: left center;
 }
 .ambiti-cols { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 64px); }
 .ambiti-col h3 {
   display: inline-block;
   font-family: var(--font-display); font-weight: 300; font-size: clamp(26px, 2.4vw, 38px); line-height: 1.05; color: var(--accent); margin-bottom: 12px;
-  scale: 1.15 1;
-  transform-origin: left center;
-  max-width: calc(100% / 1.15);
 }
 .ambiti-col p { font-size: clamp(13px, 1vw, 15px); line-height: 1.65; color: rgba(242,240,235,.78); max-width: 38ch; }
 
@@ -375,9 +355,6 @@ button { font: inherit; color: inherit; background: none; border: 0; border-radi
   font-family: var(--font-display); font-weight: 300;
   font-size: clamp(28px, 2.5vw, 38px); line-height: 1.02;
   color: var(--ink-light);
-  scale: 1.15 1;
-  transform-origin: left center;
-  max-width: calc(100% / 1.15);
 }
 .footer__logo span { color: rgba(242, 240, 235, .58); }
 .footer__tagline {

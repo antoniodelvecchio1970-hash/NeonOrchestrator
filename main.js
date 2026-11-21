@@ -230,27 +230,6 @@
     void label;
   }
 
-  /* ---------- Archivio 2026: Text Reveal orizzontale allo scroll ---------- */
-  const archiveText = $('#archive-text');
-  if (archiveText && hasGSAP && !reduce) {
-    gsap.fromTo(
-      archiveText,
-      { clipPath: 'inset(0 100% 0 0)', x: 36, opacity: 0.2 },
-      {
-        clipPath: 'inset(0 0% 0 0)',
-        x: 0,
-        opacity: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#archive',
-          start: 'top 88%',
-          end: 'bottom 42%',
-          scrub: 1.3,
-        },
-      }
-    );
-  }
-
   /* ---------- Bio: Text Reveal allo scroll ---------- */
   const splitWords = (el) => {
     const walk = (node) => {
