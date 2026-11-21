@@ -75,15 +75,13 @@
   const goWorksTop = () => scrollToY(works.getBoundingClientRect().top + window.scrollY - (st ? 0 : 0));
 
   /* ---------- Meta sincronizzata ---------- */
-  const renderNumbers = () => visible().forEach((c, i) => { $('.film-num', c).textContent = pad(i + 1); });
-
   const setActive = (idx) => {
     const list = visible();
     if (!list.length) return;
     activeIdx = Math.max(0, Math.min(list.length - 1, idx));
     list.forEach((c, i) => c.classList.toggle('is-active', i === activeIdx));
     const c = list[activeIdx];
-    metaEyebrow.textContent = `OPERE SELEZIONATE · ${pad(activeIdx + 1)} / ${pad(list.length)}`;
+    metaEyebrow.textContent = `progetti selezionati · ${pad(activeIdx + 1)} / ${pad(list.length)}`;
     metaTitle.textContent = c.dataset.title;
     metaLead.textContent = c.dataset.lead;
   };
@@ -126,19 +124,13 @@
     setActive(0);
   };
 
-  const goTo = (idx) => {
-    const n = visible().length;
-    const i = Math.max(0, Math.min(n - 1, idx));
-    if (st) {
-      scrollToY(st.start + (st.end - st.start) * (n > 1 ? i / (n - 1) : 0));
-    } else {
-      const c = visible()[i];
-      $('.film-viewport', works).scrollTo({ left: c.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft), behavior: 'smooth' });
-      setActive(i);
-    }
-  };
-  $('#prev').addEventListener('click', () => goTo(activeIdx - 1));
-  $('#next').addEventListener('click', () => goTo(activeIdx + 1));
+  const skipWorks = $('#skip-works');
+  if (skipWorks) {
+    skipWorks.addEventListener('click', () => {
+      const bioEl = $('#bio');
+      if (bioEl) scrollToEl(bioEl);
+    });
+  }
 
   // fallback nativo: aggiorna meta con lo scroll orizzontale
   $('.film-viewport', works).addEventListener('scroll', (e) => {
@@ -157,7 +149,6 @@
       b.classList.toggle('is-active', on);
       b.setAttribute('aria-pressed', String(on));
     });
-    renderNumbers();
     buildTrack();
     setActive(0);
     if (hasGSAP) ScrollTrigger.refresh();
@@ -171,7 +162,8 @@
     gridMode = !gridMode;
     works.classList.toggle('is-grid', gridMode);
     viewToggle.setAttribute('aria-pressed', String(gridMode));
-    viewToggle.textContent = gridMode ? 'VISTA FILMSTRIP' : 'VISTA GRIGLIA';
+    const labelEl = $('span', viewToggle);
+    if (labelEl) labelEl.textContent = gridMode ? 'vista filmstrip' : 'vista griglia';
     buildTrack();
     if (hasGSAP) ScrollTrigger.refresh();
     requestAnimationFrame(() => scrollToEl(works));
@@ -238,6 +230,27 @@
     void label;
   }
 
+  /* ---------- Archivio 2026: Text Reveal orizzontale allo scroll ---------- */
+  const archiveText = $('#archive-text');
+  if (archiveText && hasGSAP && !reduce) {
+    gsap.fromTo(
+      archiveText,
+      { clipPath: 'inset(0 100% 0 0)', x: 36, opacity: 0.2 },
+      {
+        clipPath: 'inset(0 0% 0 0)',
+        x: 0,
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#archive',
+          start: 'top 88%',
+          end: 'bottom 42%',
+          scrub: 1.3,
+        },
+      }
+    );
+  }
+
   /* ---------- Bio: Text Reveal allo scroll ---------- */
   const splitWords = (el) => {
     const walk = (node) => {
@@ -278,9 +291,9 @@
         ease: 'none',
         scrollTrigger: {
           trigger: bio,
-          start: 'top 78%',
-          end: 'center 38%',
-          scrub: 0.6,
+          start: 'top 82%',
+          end: 'bottom 45%',
+          scrub: 1.2,
         },
       });
     }
@@ -293,16 +306,15 @@
         ease: 'power2.out',
         scrollTrigger: {
           trigger: '.bio-body',
-          start: 'top 82%',
-          end: 'bottom 70%',
-          scrub: 0.6,
+          start: 'top 84%',
+          end: 'bottom 60%',
+          scrub: 1.2,
         },
       });
     }
   }
 
   /* ---------- Avvio ---------- */
-  renderNumbers();
   const init = () => { buildTrack(); setActive(0); if (hasGSAP) ScrollTrigger.refresh(); };
   if (document.readyState === 'complete') init(); else window.addEventListener('load', init);
   document.fonts && document.fonts.ready.then(() => hasGSAP && ScrollTrigger.refresh());
